@@ -14,8 +14,16 @@ Welcome to your new app.
 <p>Expresión implicita: @name </p>
 <p>Expresión explicita: 2 + 2  = @(2 + 2)</p>
 
+<button @onclick=@(() => Console.WriteLine("Button pressed!"))>Press</button>
+<button @onclick=@ManageClickButton>Press</button>
+
 @code{
     string name = "Dani";
 
     string Transform(string valor) => valor.ToUpper();
+
+    void ManageClickButton()
+    {
+        Console.WriteLine("Click under function");
+    }
 }
