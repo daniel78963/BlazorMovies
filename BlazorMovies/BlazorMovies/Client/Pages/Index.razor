@@ -9,7 +9,8 @@ Welcome to your new app.
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 <p>Hola, @name </p>
-<p>Hola, @Transform(name) </p>
+@* <p>Hola, @Transform(name) </p> *@
+<p>Hola, @Utilities.UtilitiesString.Transform(name) </p>
 
 <p>Expresión implicita: @name </p>
 <p>Expresión explicita: 2 + 2  = @(2 + 2)</p>
@@ -17,13 +18,30 @@ Welcome to your new app.
 <button @onclick=@(() => Console.WriteLine("Button pressed!"))>Press</button>
 <button @onclick=@ManageClickButton>Press</button>
 
-@code{
+
+<div>
+    <h3>Movies</h3>
+    <p>Title: <b>@BlackLove.Title</b></p>
+    <p>Date launch: <b> @BlackLove.DateLaunch.ToString("yyyy MMM dd") </b></p>
+</div>
+
+@code {
     string name = "Dani";
 
-    string Transform(string valor) => valor.ToUpper();
+    // string Transform(string valor) => valor.ToUpper();
 
     void ManageClickButton()
     {
         Console.WriteLine("Click under function");
+    }
+
+    Movie BlackLove {get { return GetMovie(); }}
+    Movie GetMovie()
+    {
+        return new Movie()
+            {
+                Title = "Black, Amor y Compasión",
+                DateLaunch = new DateTime(2023, 11, 11)
+            };
     }
 }
