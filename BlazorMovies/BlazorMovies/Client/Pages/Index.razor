@@ -7,3 +7,15 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<p>Hola, @name </p>
+<p>Hola, @Transform(name) </p>
+
+<p>Expresión implicita: @name </p>
+<p>Expresión explicita: 2 + 2  = @(2 + 2)</p>
+
+@code{
+    string name = "Dani";
+
+    string Transform(string valor) => valor.ToUpper();
+}
