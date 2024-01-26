@@ -27,11 +27,20 @@ Welcome to your new app.
 
 <div>
     <h3>Movies</h3>
+    <h4>Example Foreach</h4>
     @foreach (var movie in GetMovies())
     {
         <div>
             <p>Title: <b>@movie.Title</b></p>
             <p>Date launch: <b> @movie.DateLaunch.ToString("yyyy MMM dd") </b></p>
+        </div>
+    }
+    <h4>Example For</h4>
+   @for (int i = 0; i < Movies.Count; i++)
+    {
+        <div>
+            <p>@(i+1)) Title: <b>@Movies[i].Title</b></p>
+            <p>Date launch: <b> @Movies[i].DateLaunch.ToString("yyyy MMM dd") </b></p>
         </div>
     }
 </div>
@@ -65,4 +74,6 @@ Welcome to your new app.
             new Movie() { Title = "Panter", DateLaunch = new DateTime(2024, 2, 21) }
         };
     }
+
+    List<Movie> Movies {get { return GetMovies(); }}
 }
