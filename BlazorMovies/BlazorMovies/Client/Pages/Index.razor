@@ -25,6 +25,17 @@ Welcome to your new app.
     <p>Date launch: <b> @BlackLove.DateLaunch.ToString("yyyy MMM dd") </b></p>
 </div>
 
+<div>
+    <h3>Movies</h3>
+    @foreach (var movie in GetMovies())
+    {
+        <div>
+            <p>Title: <b>@movie.Title</b></p>
+            <p>Date launch: <b> @movie.DateLaunch.ToString("yyyy MMM dd") </b></p>
+        </div>
+    }
+</div>
+
 @code {
     string name = "Dani";
 
@@ -35,7 +46,7 @@ Welcome to your new app.
         Console.WriteLine("Click under function");
     }
 
-    Movie BlackLove {get { return GetMovie(); }}
+    Movie BlackLove { get { return GetMovie(); } }
     Movie GetMovie()
     {
         return new Movie()
@@ -43,5 +54,15 @@ Welcome to your new app.
                 Title = "Black, Amor y Compasión",
                 DateLaunch = new DateTime(2023, 11, 11)
             };
+    }
+
+    List<Movie> GetMovies()
+    {
+        return new List<Movie>()
+        {
+            new Movie() { Title = "Black, Amor y Compasión", DateLaunch = new DateTime(2023, 11, 11) },
+            new Movie() { Title = "Winter", DateLaunch = new DateTime(2024, 05, 19) },
+            new Movie() { Title = "Panter", DateLaunch = new DateTime(2024, 2, 21) }
+        };
     }
 }
