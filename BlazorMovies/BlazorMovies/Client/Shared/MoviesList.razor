@@ -11,7 +11,7 @@ else
     <h4>Example Foreach</h4>
     @foreach (var movie in Movies)
     {
-        <div>
+       @*  <div>
             <p>
                 Title: <b>@movie.Title</b>
                 @if (DateTime.Today.Subtract(movie.DateLaunch).Days <= 14)
@@ -20,7 +20,8 @@ else
                 }
             </p>
             <p>Date launch: <b> @movie.DateLaunch.ToString("yyyy MMM dd") </b></p>
-        </div>
+        </div> *@
+        <MovieIndividual Movie="movie"></MovieIndividual>
     }
     <h4>Example For</h4>
     @for (int i = 0; i < Movies.Count; i++)
@@ -36,19 +37,19 @@ else
     [Parameter]
     public List<Movie>? Movies { get; set; }
 
-    public List<Movie> GetMovies()
-    {
-        return new List<Movie>()
-        {
-            new Movie() { Title = "Black, Amor y Compasión", DateLaunch = new DateTime(2023, 11, 11) },
-            new Movie() { Title = "Winter", DateLaunch = new DateTime(2024, 05, 19) },
-            new Movie() { Title = "Panter", DateLaunch = new DateTime(2024, 1, 21) }
-        };
-    }
+    // public List<Movie> GetMovies()
+    // {
+    //     return new List<Movie>()
+    //     {
+    //         new Movie() { Title = "Black, Amor y Compasión", DateLaunch = new DateTime(2023, 11, 11) },
+    //         new Movie() { Title = "Winter", DateLaunch = new DateTime(2024, 05, 19) },
+    //         new Movie() { Title = "Panter", DateLaunch = new DateTime(2024, 1, 21) }
+    //     };
+    // }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await Task.Delay(3000);
-        Movies = GetMovies();
-    }
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     await Task.Delay(3000);
+    //     Movies = GetMovies();
+    // }
 }

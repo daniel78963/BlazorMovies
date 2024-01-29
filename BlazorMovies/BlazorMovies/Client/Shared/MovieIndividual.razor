@@ -1,0 +1,16 @@
+﻿<div>
+      <p>
+    Title: <b>Movie.Title</b>
+    @if (DateTime.Today.Subtract(Movie.DateLaunch).Days <= 14)
+    {
+    <span style="color: orangered"> (new!)</span>
+    }
+    </p>
+    <p>Date launch: <b> @Movie.DateLaunch.ToString("yyyy MMM dd") </b></p>
+</div>
+
+
+@code {
+    [Parameter]
+    public Movie Movie { get; set; } = null!;
+}
