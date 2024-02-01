@@ -18,7 +18,7 @@ Welcome to your new app.
 <button @onclick=@(() => Console.WriteLine("Button pressed!"))>Press</button>
 <button @onclick=@ManageClickButton>Press</button>
 
-@* 
+@*
 <div>
     <h3>Movies</h3>
     <p>Title: <b>@BlackLove.Title</b></p>
@@ -28,18 +28,30 @@ Welcome to your new app.
 <div>
     <h3>Movies</h3>
     <MoviesList Movies="GetMovies()"></MoviesList>
-  
+
 </div>
 
 <div>
     <h2>Example Create Movies</h2>
-     
-    <EjemploTextbox placeholder="movie name" ></EjemploTextbox>
+
+    @* <EjemploTextbox placeholder="movie name"></EjemploTextbox> *@
+  @*   <EjemploTextbox @attributes="@(new Dictionary<string, object>()
+                                    {
+                                        {"placeholder", "new placeholder"},
+                                        {"disabled", "true"}
+                                    })"></EjemploTextbox> *@
+    <EjemploTextbox @attributes="parametersTxt"></EjemploTextbox>
 </div>
 
 @code {
     string name = "Dani";
     // string Transform(string valor) => valor.ToUpper();
+
+    private Dictionary<string, object> parametersTxt = new Dictionary<string, object>()
+                                    {
+                                        {"placeholder", "new placeholder"},
+                                        {"disabled", "true"}
+                                    };
 
     void ManageClickButton()
     {
@@ -69,5 +81,5 @@ Welcome to your new app.
     // // List<Movie> Movies {get { return GetMovies(); }}
     // List<Movie>? Movies { get; set; }
 
-  
+
 }
