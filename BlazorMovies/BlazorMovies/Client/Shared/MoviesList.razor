@@ -9,9 +9,13 @@ else if (Movies.Count == 0)
 else
 {
     <h4>Example Foreach</h4>
+
+    <input type="checkbox" @onchange="@(() => ShowButtons = !ShowButtons)" />
+    <span>Show Buttons</span>
+
     @foreach (var movie in Movies)
     {
-       @*  <div>
+        @*  <div>
             <p>
                 Title: <b>@movie.Title</b>
                 @if (DateTime.Today.Subtract(movie.DateLaunch).Days <= 14)
@@ -21,7 +25,7 @@ else
             </p>
             <p>Date launch: <b> @movie.DateLaunch.ToString("yyyy MMM dd") </b></p>
         </div> *@
-        <MovieIndividual Movie="movie"></MovieIndividual>
+        <MovieIndividual Movie="movie" ShowButtons="ShowButtons"></MovieIndividual>
     }
     <h4>Example For</h4>
     @for (int i = 0; i < Movies.Count; i++)
@@ -36,6 +40,8 @@ else
 @code {
     [Parameter]
     public List<Movie>? Movies { get; set; }
+
+    bool ShowButtons = false;
 
     // public List<Movie> GetMovies()
     // {

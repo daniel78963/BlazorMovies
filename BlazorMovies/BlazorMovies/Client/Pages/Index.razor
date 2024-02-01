@@ -27,19 +27,21 @@ Welcome to your new app.
 
 <div>
     <h3>Movies</h3>
-    <MoviesList Movies="GetMovies()"></MoviesList>
 
+    <div>
+        <MoviesList Movies="GetMovies()"></MoviesList>
+    </div>
 </div>
 
 <div>
     <h2>Example Create Movies</h2>
 
     @* <EjemploTextbox placeholder="movie name"></EjemploTextbox> *@
-  @*   <EjemploTextbox @attributes="@(new Dictionary<string, object>()
-                                    {
-                                        {"placeholder", "new placeholder"},
-                                        {"disabled", "true"}
-                                    })"></EjemploTextbox> *@
+    @*   <EjemploTextbox @attributes="@(new Dictionary<string, object>()
+    {
+    {"placeholder", "new placeholder"},
+    {"disabled", "true"}
+    })"></EjemploTextbox> *@
     <EjemploTextbox @attributes="parametersTxt"></EjemploTextbox>
 </div>
 
