@@ -10,7 +10,8 @@ else
 {
     <h4>Example Foreach</h4>
 
-    <input type="checkbox" @onchange="@(() => ShowButtons = !ShowButtons)" />
+   @*  <input type="checkbox" @onchange="@(() => ShowButtons = !ShowButtons)" /> *@
+    <input type="checkbox" @bind="ShowButtons" />
     <span>Show Buttons</span>
 
     @foreach (var movie in Movies)
