@@ -1,0 +1,31 @@
+﻿<h3>BindAfterDemo</h3>
+
+<input type="text" @bind="search" @bind:after="Buscar" /> 
+
+<p>
+    Persons found: 
+</p>
+<ul>
+    @foreach (var person in personsFound)
+    {
+        <li>@person</li>
+    }
+</ul>
+
+@code {
+    private string search = string.Empty;
+    private List<string> personsFound = new List<string>();
+    private async Task Buscar()
+    {
+        var persons = new List<string>
+        {
+            "Daniel Ramirez",
+            "Carmelo",
+            "Solier Candelo" ,
+            "Luciana Ramirez"
+        };
+
+        await Task.Delay(1000);
+        personsFound = persons.Where(p => p.Contains(search)).ToList();
+    }
+}
