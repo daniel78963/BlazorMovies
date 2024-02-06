@@ -60,8 +60,9 @@ else
     //     Movies = GetMovies();
     // }
 
-    private void DeleteMovieEvent()
+    private void DeleteMovieEvent(Movie movie)
     {
         Console.WriteLine("deleting a movie...");
+        Movies!.Remove(movie);
     }
 }
