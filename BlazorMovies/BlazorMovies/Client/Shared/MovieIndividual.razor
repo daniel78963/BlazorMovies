@@ -13,7 +13,7 @@
             <button @onclick="DeleteMovie">Delete</button>
         </div> *@
         <div>
-            <button @onclick="DeleteMovieEvent">Delete</button>
+            <button @onclick="@(() => DeleteMovieEvent.InvokeAsync(Movie))">Delete</button>
         </div>
     }
 </div>
@@ -27,7 +27,7 @@
     public bool ShowButtons { get; set; } = false;
 
     [Parameter]
-    public EventCallback DeleteMovieEvent { get; set; }
+    public EventCallback<Movie> DeleteMovieEvent { get; set; }
 
 
     void DeleteMovie()

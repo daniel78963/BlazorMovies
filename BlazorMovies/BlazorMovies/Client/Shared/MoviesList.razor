@@ -26,7 +26,7 @@ else
             </p>
             <p>Date launch: <b> @movie.DateLaunch.ToString("yyyy MMM dd") </b></p>
         </div> *@
-        <MovieIndividual Movie="movie" ShowButtons="ShowButtons"></MovieIndividual>
+        <MovieIndividual Movie="movie" ShowButtons="ShowButtons" DeleteMovieEvent="DeleteMovieEvent"></MovieIndividual>
     }
     <h4>Example For</h4>
     @for (int i = 0; i < Movies.Count; i++)
@@ -60,7 +60,7 @@ else
     //     Movies = GetMovies();
     // }
 
-    private void DeleteMovie()
+    private void DeleteMovieEvent()
     {
         Console.WriteLine("deleting a movie...");
     }
