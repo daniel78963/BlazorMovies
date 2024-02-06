@@ -9,8 +9,11 @@
     <p>Date launch: <b> @Movie.DateLaunch.ToString("yyyy MMM dd") </b></p>
     @if (ShowButtons)
     {
-        <div>
+      @*   <div>
             <button @onclick="DeleteMovie">Delete</button>
+        </div> *@
+        <div>
+            <button @onclick="DeleteMovieEvent">Delete</button>
         </div>
     }
 </div>
@@ -22,6 +25,9 @@
     public Movie Movie { get; set; } = null!;
     [Parameter]
     public bool ShowButtons { get; set; } = false;
+
+    [Parameter]
+    public EventCallback DeleteMovieEvent { get; set; }
 
 
     void DeleteMovie()
