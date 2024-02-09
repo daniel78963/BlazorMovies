@@ -1,6 +1,7 @@
 ﻿@if (Movies is null)
 {
-    <p>loading movies...</p>
+   @*  <p>loading movies...</p> *@
+   @ChildContent
 }
 else if (Movies.Count == 0)
 {
@@ -65,4 +66,7 @@ else
         Console.WriteLine("deleting a movie...");
         Movies!.Remove(movie);
     }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
 }
