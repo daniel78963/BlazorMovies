@@ -65,7 +65,12 @@ Welcome to your new app.
 
     <div>
         <MoviesList Movies="GetMovies()">
-            <p>loading movies...</p>
+            <Loading>
+                <p>loading movies... (loading fragment)</p>
+            </Loading>
+            <NoRecords>
+                <p>No movies availables (loading fragment)</p>
+            </NoRecords>
         </MoviesList>
     </div>
 </div>

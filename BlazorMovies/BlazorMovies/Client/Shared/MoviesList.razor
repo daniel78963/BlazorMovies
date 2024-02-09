@@ -1,17 +1,33 @@
 ﻿@if (Movies is null)
 {
-   @*  <p>loading movies...</p> *@
-   @ChildContent
+    @*  <p>loading movies...</p> *@
+
+    @if (Loading is null)
+    {
+        <p>loading movies...</p>
+    }
+    else
+    {
+        @Loading
+    }
 }
 else if (Movies.Count == 0)
 {
-    <p>No movies availables</p>
+    @*  <p>No movies availables</p> *@
+    @if (NoRecords is null)
+    {
+        <p>No movies availables</p>
+    }
+    else
+    {
+        @NoRecords
+    } 
 }
 else
 {
     <h4>Example Foreach</h4>
 
-   @*  <input type="checkbox" @onchange="@(() => ShowButtons = !ShowButtons)" /> *@
+    @*  <input type="checkbox" @onchange="@(() => ShowButtons = !ShowButtons)" /> *@
     <input type="checkbox" @bind="ShowButtons" />
     <span>Show Buttons</span>
 
@@ -67,6 +83,10 @@ else
         Movies!.Remove(movie);
     }
 
+    // [Parameter]
+    // public RenderFragment ChildContent { get; set; } = null!;
     [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
+    public RenderFragment Loading { get; set; } = null!;
+    [Parameter]
+    public RenderFragment NoRecords { get; set; } = null!;
 }
