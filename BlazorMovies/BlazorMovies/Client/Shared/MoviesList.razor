@@ -1,59 +1,28 @@
-﻿@if (Movies is null)
-{
-    @*  <p>loading movies...</p> *@
+﻿
+<h4>Example Foreach</h4>
 
-    @if (Loading is null)
-    {
-        <p>loading movies...</p>
-    }
-    else
-    {
-        @Loading
-    }
-}
-else if (Movies.Count == 0)
-{
-    @*  <p>No movies availables</p> *@
-    @if (NoRecords is null)
-    {
-        <p>No movies availables</p>
-    }
-    else
-    {
-        @NoRecords
-    } 
-}
-else
-{
-    <h4>Example Foreach</h4>
+@*  <input type="checkbox" @onchange="@(() => ShowButtons = !ShowButtons)" /> *@
+<input type="checkbox" @bind="ShowButtons" />
+<span>Show Buttons</span>
 
-    @*  <input type="checkbox" @onchange="@(() => ShowButtons = !ShowButtons)" /> *@
-    <input type="checkbox" @bind="ShowButtons" />
-    <span>Show Buttons</span>
+<ListadoGenerico list="Movies">
+    <HaveRecord>
+        <MovieIndividual Movie="context" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
+    </HaveRecord>
+   @*  <HaveRecord contextmenu="movie">
+        <MovieIndividual Movie="movie" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
+    </HaveRecord> *@
+</ListadoGenerico>
 
-    @foreach (var movie in Movies)
-    {
-        @*  <div>
-            <p>
-                Title: <b>@movie.Title</b>
-                @if (DateTime.Today.Subtract(movie.DateLaunch).Days <= 14)
-                {
-                    <span style="color: orangered"> (new!)</span>
-                }
-            </p>
-            <p>Date launch: <b> @movie.DateLaunch.ToString("yyyy MMM dd") </b></p>
-        </div> *@
-        <MovieIndividual Movie="movie" ShowButtons="ShowButtons" DeleteMovieEvent="DeleteMovieEvent"></MovieIndividual>
-    }
-    <h4>Example For</h4>
-    @for (int i = 0; i < Movies.Count; i++)
-    {
-        <div>
-            <p>@(i + 1)) Title: <b>@Movies[i].Title</b></p>
-            <p>Date launch: <b> @Movies[i].DateLaunch.ToString("yyyy MMM dd") </b></p>
-        </div>
-    }
+<h4>Example For</h4>
+@for (int i = 0; i < Movies.Count; i++)
+{
+    <div>
+        <p>@(i + 1)) Title: <b>@Movies[i].Title</b></p>
+        <p>Date launch: <b> @Movies[i].DateLaunch.ToString("yyyy MMM dd") </b></p>
+    </div>
 }
+
 
 @code {
     [Parameter]
@@ -85,8 +54,8 @@ else
 
     // [Parameter]
     // public RenderFragment ChildContent { get; set; } = null!;
-    [Parameter]
-    public RenderFragment Loading { get; set; } = null!;
-    [Parameter]
-    public RenderFragment NoRecords { get; set; } = null!;
+    // [Parameter]
+    // public RenderFragment Loading { get; set; } = null!;
+    // [Parameter]
+    // public RenderFragment NoRecords { get; set; } = null!;
 }
