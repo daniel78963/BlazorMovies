@@ -61,21 +61,25 @@
 
     protected override void OnInitialized()
     {
-        Console.WriteLine("OnInitialized");
+        ///Primera vez
+        Console.WriteLine($"OnInitialized - Quantity movies: {Movies!.Count}");
     }
 
     protected override void OnParametersSet()
     {
-        Console.WriteLine("OnParametersSet");
+        ///Si tengo parametros
+        Console.WriteLine($"OnParametersSet - Quantity movies: {Movies!.Count}");
     }
 
     protected override void OnAfterRender(bool firtsRendering)
     {
+        ///Despues del cargado
         Console.WriteLine("OnAfterRender: primera vez: " + firtsRendering);
     }
 
     protected override bool ShouldRender()
     {
+        ///SI debe volver a actualizar la parte visual
         Console.WriteLine("ShouldRender");
         return true;
     }
