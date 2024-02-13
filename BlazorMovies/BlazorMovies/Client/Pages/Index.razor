@@ -59,21 +59,27 @@ Welcome to your new app.
     <h2>Bind After Demo</h2>
     <BindAfterDemo></BindAfterDemo>
 </div>
- 
+
 <div>
     <h3>Movies --------- </h3>
 
     <div>
-        <MoviesList Movies="GetMovies()">
-           @*  <Loading>
-                <p>loading movies... (loading fragment)</p>
-            </Loading> *@
-           @*  <NoRecords>
-                <p>No movies availables (loading fragment)</p>
-            </NoRecords> *@
+        @* <MoviesList Movies="GetMovies()">
+        <Loading>
+        <p>loading movies... (loading fragment)</p>
+        </Loading>
+        <NoRecords>
+        <p>No movies availables (loading fragment)</p>
+        </NoRecords>
+        </MoviesList>*@
+
+        <MoviesList Movies="Movies">
+
         </MoviesList>
     </div>
 </div>
+
+<button @onclick="AddMovie">Add Movie</button>
 
 @code {
     string name = "Dani";
@@ -113,5 +119,13 @@ Welcome to your new app.
     // // List<Movie> Movies {get { return GetMovies(); }}
     // List<Movie>? Movies { get; set; }
 
-
+    List<Movie>? Movies { get; set; }
+    protected override void OnInitialized()
+    {
+        Movies = GetMovies();
+    }
+    private void AddMovie()
+    {
+        Movies!.Add(new Movie { Title = "Rebel Moon", DateLaunch = DateTime.Today });
+    }
 }
