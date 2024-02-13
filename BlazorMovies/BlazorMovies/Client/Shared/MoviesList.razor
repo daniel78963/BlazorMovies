@@ -58,4 +58,25 @@
     // public RenderFragment Loading { get; set; } = null!;
     // [Parameter]
     // public RenderFragment NoRecords { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("OnInitialized");
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("OnParametersSet");
+    }
+
+    protected override void OnAfterRender(bool firtsRendering)
+    {
+        Console.WriteLine("OnAfterRender: primera vez: " + firtsRendering);
+    }
+
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("ShouldRender");
+        return true;
+    }
 }
