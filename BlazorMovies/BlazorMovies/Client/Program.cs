@@ -1,4 +1,5 @@
 using BlazorMovies.Client;
+using BlazorMovies.Client.Repositories;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -15,6 +16,7 @@ await builder.Build().RunAsync();
 
 void ConfigureServices(IServiceCollection services)
 {
-    builder.Services.AddSingleton<ServicesSingleton>();
-    builder.Services.AddTransient<ServicesTransient>();
+    services.AddSingleton<ServicesSingleton>();
+    services.AddTransient<ServicesTransient>();
+    services.AddSingleton<IRepository, Repository>();
 }
