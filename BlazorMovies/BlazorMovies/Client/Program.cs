@@ -16,5 +16,5 @@ await builder.Build().RunAsync();
 void ConfigureServices(IServiceCollection services)
 {
     builder.Services.AddSingleton<ServicesSingleton>();
-    builder.Services.AddSingleton<ServicesTransient>();
+    builder.Services.AddTransient<ServicesTransient>();
 }
