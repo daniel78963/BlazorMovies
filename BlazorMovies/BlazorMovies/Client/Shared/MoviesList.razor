@@ -10,8 +10,8 @@
     <HaveRecord>
         <MovieIndividual Movie="context" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
     </HaveRecord>
-   @*  <HaveRecord contextmenu="movie">
-        <MovieIndividual Movie="movie" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
+    @*  <HaveRecord contextmenu="movie">
+    <MovieIndividual Movie="movie" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
     </HaveRecord> *@
 </ListadoGenerico>
 
@@ -49,11 +49,12 @@
 
     private async Task DeleteMovieEvent(Movie movie)
     {
-        var confirm = await js.InvokeAsync<bool>("confirm", $"do you want delete the movie {movie.Title}?");
+        // var confirm = await js.InvokeAsync<bool>("confirm", $"do you want delete the movie {movie.Title}?");
+        var confirm = await js.Confirm($"do you want delete the movie {movie.Title}?");
         if (confirm)
-        { 
+        {
             Console.WriteLine("deleting a movie...");
-            Movies!.Remove(movie); 
+            Movies!.Remove(movie);
         }
     }
 
