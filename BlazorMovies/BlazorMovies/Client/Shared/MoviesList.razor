@@ -1,4 +1,4 @@
-﻿@inject IJSRuntime
+﻿@inject IJSRuntime js
 
 <h4>Example Foreach</h4>
 
@@ -47,8 +47,10 @@
     //     Movies = GetMovies();
     // }
 
-    private void DeleteMovieEvent(Movie movie)
+    private async void DeleteMovieEvent(Movie movie)
     {
+        var confirm = await js.InvokeAsync<bool>("confirm", $"do you want delete the movie {movie.Title}?");
+
         Console.WriteLine("deleting a movie...");
         Movies!.Remove(movie);
     }
