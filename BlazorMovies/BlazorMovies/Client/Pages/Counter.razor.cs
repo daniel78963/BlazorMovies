@@ -9,7 +9,7 @@ namespace BlazorMovies.Client.Pages
         [Inject] ServicesTransient transient { get; set; } = null!;
         [Inject] IJSRuntime js { get; set; } = null!;
 
-        IJSObjectReference module; 
+        IJSObjectReference? module; 
 
         //Miembro de instacia
         private int currentCount = 0;
@@ -21,7 +21,7 @@ namespace BlazorMovies.Client.Pages
         {
             //Con esta línea, se va a descargar el archivo de Javascript y no antes con toda la app
             module = await js.InvokeAsync<IJSObjectReference>("import", "./js/Counter.js");
-            await module.InvokeVoidAsync("showAlert");
+            await module.InvokeVoidAsync("showAlert", "The JS file has been loaded");
 
             currentCount++;
             currentCountStatic = currentCount;

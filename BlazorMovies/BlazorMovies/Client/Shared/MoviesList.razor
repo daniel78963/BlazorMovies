@@ -89,4 +89,12 @@
         Console.WriteLine("ShouldRender");
         return true;
     }
+
+    public void CleanMovies()
+    {
+        if (Movies is not null)
+        {
+            Movies.Clear();
+        }
+    }
 }

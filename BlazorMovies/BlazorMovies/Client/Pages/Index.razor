@@ -85,6 +85,11 @@ Welcome to your new app.
         <MoviesList Movies="Movies">
 
         </MoviesList>
+
+        <button @onclick="CleanMovies" >Clean movies</button>
+        <MoviesList @ref="moviesList" Movies="Movies">
+        </MoviesList>
+        
     </div>
 </div>
 
@@ -137,5 +142,11 @@ Welcome to your new app.
     private void AddMovie()
     {
         Movies!.Add(new Movie { Title = "Rebel Moon", DateLaunch = DateTime.Today });
+    }
+
+    public MoviesList? moviesList;
+    private void CleanMovies()
+    {
+        moviesList!.CleanMovies();
     }
 }
