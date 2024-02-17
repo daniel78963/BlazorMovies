@@ -47,12 +47,14 @@
     //     Movies = GetMovies();
     // }
 
-    private async void DeleteMovieEvent(Movie movie)
+    private async Task DeleteMovieEvent(Movie movie)
     {
         var confirm = await js.InvokeAsync<bool>("confirm", $"do you want delete the movie {movie.Title}?");
-
-        Console.WriteLine("deleting a movie...");
-        Movies!.Remove(movie);
+        if (confirm)
+        { 
+            Console.WriteLine("deleting a movie...");
+            Movies!.Remove(movie); 
+        }
     }
 
     // [Parameter]
