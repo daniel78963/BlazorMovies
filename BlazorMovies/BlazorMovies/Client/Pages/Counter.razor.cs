@@ -14,13 +14,20 @@ namespace BlazorMovies.Client.Pages
         //Static
         private static int currentCountStatic = 0;
 
-        private async Task IncrementCount()
+        [JSInvokable]
+        public async Task IncrementCount()
         {
             currentCount++;
             currentCountStatic = currentCount;
             singleton.Value = currentCount;
             transient.Value = currentCount;
             await js.InvokeVoidAsync("testNETStatic");
+        }
+
+        private async Task IncrementCountJS()
+        {
+            await js.InvokeVoidAsync("testNETInstance", 
+                DotNetObjectReference.Create(this)); //Estamos creando una referencia a un objeto de .NET
         }
 
         [JSInvokable]
