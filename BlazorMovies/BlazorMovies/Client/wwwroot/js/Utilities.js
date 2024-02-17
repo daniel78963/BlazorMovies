@@ -1,3 +1,5 @@
 ﻿function testNETStatic() {
-    DotNet.invokeMethodAsync("BlazorMovies.Client");
+    DotNet.invokeMethodAsync("BlazorMovies.Client", "GetCurrentCount").then(result => {
+        console.log('Count from JS ' + result);
+    });
 }
