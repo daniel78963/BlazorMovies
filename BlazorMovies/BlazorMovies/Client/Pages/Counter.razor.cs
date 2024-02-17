@@ -26,8 +26,9 @@ namespace BlazorMovies.Client.Pages
 
         private async Task IncrementCountJS()
         {
-            await js.InvokeVoidAsync("testNETInstance", 
+            await js.InvokeVoidAsync("testNETInstance",
                 DotNetObjectReference.Create(this)); //Estamos creando una referencia a un objeto de .NET
+                                                     //con el this. le estamos enviando el contexto donde me encuentro, es decir, la instancia de la clase Counter.cs
         }
 
         [JSInvokable]
