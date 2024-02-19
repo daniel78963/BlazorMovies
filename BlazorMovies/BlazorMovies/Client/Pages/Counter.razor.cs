@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BlazorMovies.Client.Helpers;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace BlazorMovies.Client.Pages
@@ -8,8 +9,9 @@ namespace BlazorMovies.Client.Pages
         [Inject] ServicesSingleton singleton { get; set; } = null!;
         [Inject] ServicesTransient transient { get; set; } = null!;
         [Inject] IJSRuntime js { get; set; } = null!;
-        [CascadingParameter(Name = "Color")] protected string Color { get; set; } = null!;
-        [CascadingParameter(Name = "Size")] protected string Size { get; set; } = null!;
+        //[CascadingParameter(Name = "Color")] protected string Color { get; set; } = null!;
+        //[CascadingParameter(Name = "Size")] protected string Size { get; set; } = null!;
+        [CascadingParameter ] protected AppState appState { get; set; } = null!;
 
         IJSObjectReference? module; 
 
