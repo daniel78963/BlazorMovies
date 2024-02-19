@@ -17,8 +17,18 @@
 
 <div style="display: flex;" class="mt-4">
     <div style="width: 150px" class="me-2" >
-
-
+        <select @bind="@appState.Color" class="form-control">
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+            <option value="orange">Orange</option>
+        </select>
+    </div>
+    <div style="width: 150px" class="me-2">
+        <select @bind="@appState.Size" class="form-control">
+            <option value="12px">12px</option>
+            <option value="20px">20px</option>
+            <option value="30px">30px</option>
+        </select>
     </div>
 </div>
 
