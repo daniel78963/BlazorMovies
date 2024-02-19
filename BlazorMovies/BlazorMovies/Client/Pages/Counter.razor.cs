@@ -8,6 +8,7 @@ namespace BlazorMovies.Client.Pages
         [Inject] ServicesSingleton singleton { get; set; } = null!;
         [Inject] ServicesTransient transient { get; set; } = null!;
         [Inject] IJSRuntime js { get; set; } = null!;
+        [CascadingParameter] protected string Color { get; set; } = null!;
 
         IJSObjectReference? module; 
 
