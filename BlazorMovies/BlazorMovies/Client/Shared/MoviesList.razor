@@ -6,15 +6,20 @@
 <input type="checkbox" @bind="ShowButtons" />
 <span>Show Buttons</span>
 
-<ListadoGenerico list="Movies">
-    <HaveRecord>
-        <MovieIndividual Movie="context" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
-    </HaveRecord>
-    @*  <HaveRecord contextmenu="movie">
-    <MovieIndividual Movie="movie" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
-    </HaveRecord> *@
-</ListadoGenerico>
 
+<div style="display: flex; flex-wrap: wrap; align-items: center;">
+    <ListadoGenerico list="Movies">
+        <HaveRecord>
+            <MovieIndividual Movie="context" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
+        </HaveRecord>
+        @*  <HaveRecord contextmenu="movie">
+        <MovieIndividual Movie="movie" DeleteMovieEvent="DeleteMovieEvent" ShowButtons="ShowButtons"></MovieIndividual>
+        </HaveRecord> *@
+    </ListadoGenerico>
+</div>
+
+
+@* 
 <h4>Example For</h4>
 @for (int i = 0; i < Movies.Count; i++)
 {
@@ -24,7 +29,7 @@
     </div>
 }
 
-
+ *@
 @code {
     [Parameter]
     public List<Movie>? Movies { get; set; }
