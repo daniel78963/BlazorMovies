@@ -1,7 +1,15 @@
 ﻿@page "/movies/create"
+@inject NavigationManager navigationManager
 
 <h3>CreateMovie</h3>
 
-@code {
+<button @onclick="Create">Save Movie</button>
 
+@code {
+    void Create()
+    {
+        Console.WriteLine(navigationManager.BaseUri);
+        Console.WriteLine(navigationManager.Uri);
+        navigationManager.NavigateTo("movie");
+    }
 }

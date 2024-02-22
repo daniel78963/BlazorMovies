@@ -1,7 +1,7 @@
-﻿@page "/genders/edit"
+﻿@page "/genders/edit/{GenderId:int}"
 
 <h3>EditGenders</h3>
 
 @code {
-
+    [Parameter] public int GenderId { get; set; }
 }
