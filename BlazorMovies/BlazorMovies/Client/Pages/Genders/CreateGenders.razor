@@ -1,7 +1,23 @@
 ﻿@page "/genders/create"
 
-<h3>CreateGenders</h3>
+<h3>Create Genders</h3>
+
+<EditForm Model="Gender" OnSubmit="Create" >
+    <div class="mb-3">
+        <label>Name:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Gender.Name"></InputText>
+        </div>
+    </div>
+
+    <button class="btn btn-success" type="submit"></button>
+</EditForm>
 
 @code {
+    private Gender Gender;
 
+    private void Create()
+    {
+        
+    }
 }
