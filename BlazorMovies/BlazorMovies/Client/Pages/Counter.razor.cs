@@ -1,4 +1,5 @@
 ﻿using BlazorMovies.Client.Helpers;
+using MathNet.Numerics.Statistics;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -19,13 +20,19 @@ namespace BlazorMovies.Client.Pages
         private int currentCount = 0;
         //Static
         private static int currentCountStatic = 0;
-
+         
         [JSInvokable]
         public async Task IncrementCount()
         {
             //Con esta línea, se va a descargar el archivo de Javascript y no antes con toda la app
             module = await js.InvokeAsync<IJSObjectReference>("import", "./js/Counter.js");
             await module.InvokeVoidAsync("showAlert", "The JS file has been loaded");
+
+            var number = new double[] { 1, 2, 3, 4, 5 };
+            var max = number.Maximum();
+            var min = number.Minimum();
+
+            await js.InvokeVoidAsync("alert", $"The max number is {max} and the min is {min}");
 
             currentCount++;
             currentCountStatic = currentCount;
