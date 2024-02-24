@@ -1,7 +1,20 @@
 ﻿@page "/genders/edit/{GenderId:int}"
 
-<h3>EditGenders</h3>
-
+<h3>Edit Genders</h3>
+ 
+<FormGender Gender="Gender" OnValidSubmit="Edit"></FormGender>
+ 
 @code {
     [Parameter] public int GenderId { get; set; }
+    private Gender? Gender;
+
+    protected override void OnInitialized()
+    {
+        Gender = new Gender() { Id = GenderId, Name = "Comedy" }; 
+    }
+
+    private void Edit()
+    {
+
+    }
 }

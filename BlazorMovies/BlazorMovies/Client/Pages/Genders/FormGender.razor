@@ -1,0 +1,22 @@
+﻿<EditForm Model="Gender" OnValidSubmit="OnValidSubmit">
+    @* Este componente se encarga de forzar las validaciones *@
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="mb-3">
+        <label>Name</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Gender.Name"></InputText>
+            <ValidationMessage For="@(() => Gender.Name)"></ValidationMessage>
+        </div>
+    </div>
+    <button class="btn btn-success" type="submit">Save</button>
+</EditForm>
+
+@code {
+    [EditorRequired]
+    [Parameter]
+    public Gender Gender { get; set; } = null!;
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback OnValidSubmit { get; set; }
+}
