@@ -1,4 +1,6 @@
-﻿<EditForm Model="Gender" OnValidSubmit="OnValidSubmit">
+﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+
+<EditForm Model="Gender" OnValidSubmit="OnValidSubmit">
     @* Este componente se encarga de forzar las validaciones *@
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <div class="mb-3">
