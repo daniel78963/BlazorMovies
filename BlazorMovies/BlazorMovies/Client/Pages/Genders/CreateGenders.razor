@@ -1,14 +1,17 @@
 ﻿@page "/genders/create"
+@inject NavigationManager navigationManager
 
 <h3>Create Genders</h3>
 
-<FormGender Gender="Gender" OnValidSubmit="Create"></FormGender>
+<FormGender @ref="formGender" Gender="Gender" OnValidSubmit="Create"></FormGender>
 
 @code {
     private Gender Gender = new Gender();
+    private FormGender? formGender;
 
     private void Create()
     {
-        
+        formGender.FormPostedSuccess = true;
+        navigationManager.NavigateTo("genders"); 
     }
 }

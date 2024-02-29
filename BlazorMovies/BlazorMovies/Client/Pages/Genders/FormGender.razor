@@ -1,4 +1,5 @@
-﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+﻿@inject IJSRuntime js
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
 @* <EditForm Model="Gender" OnValidSubmit="OnValidSubmit"> *@
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
@@ -22,7 +23,6 @@
         editContext = new(Gender);
     }
 
-
     [EditorRequired]
     [Parameter]
     public Gender Gender { get; set; } = null!;
@@ -31,6 +31,8 @@
     [Parameter]
     public EventCallback OnValidSubmit { get; set; }
 
+    public bool FormPostedSuccess { get; set; } = false;
+
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {
         var formEdited = editContext.IsModified();
@@ -38,6 +40,16 @@
         {
             return;
         }
+        if (FormPostedSuccess)
+        {
+            return;
+        }
+        var confirm = await js.Confirm("Do you want exit and lose changes?");
+        if (confirm)
+        {
+            return;
+        }
+
         context.PreventNavigation();
     }
 }
