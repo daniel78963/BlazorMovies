@@ -1,6 +1,7 @@
 ﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-<EditForm Model="Gender" OnValidSubmit="OnValidSubmit">
+@* <EditForm Model="Gender" OnValidSubmit="OnValidSubmit"> *@
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     @* Este componente se encarga de forzar las validaciones *@
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <div class="mb-3">
@@ -14,6 +15,14 @@
 </EditForm>
 
 @code {
+    private EditContext editContext = null!;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(Gender);
+    }
+
+
     [EditorRequired]
     [Parameter]
     public Gender Gender { get; set; } = null!;
@@ -21,4 +30,9 @@
     [EditorRequired]
     [Parameter]
     public EventCallback OnValidSubmit { get; set; }
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        
+    }
 }
