@@ -33,6 +33,11 @@
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {
-        
+        var formEdited = editContext.IsModified();
+        if (!formEdited)
+        {
+            return;
+        }
+        context.PreventNavigation();
     }
 }
