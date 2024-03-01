@@ -1,5 +1,6 @@
 using BlazorMovies.Client;
 using BlazorMovies.Client.Repositories;
+using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -16,6 +17,7 @@ await builder.Build().RunAsync();
 
 void ConfigureServices(IServiceCollection services)
 {
+    services.AddSweetAlert2();
     services.AddSingleton<ServicesSingleton>();
     services.AddTransient<ServicesTransient>();
     services.AddSingleton<IRepository, Repository>();
