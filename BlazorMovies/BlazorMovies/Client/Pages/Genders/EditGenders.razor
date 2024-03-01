@@ -1,12 +1,14 @@
 ﻿@page "/genders/edit/{GenderId:int}"
+@inject NavigationManager navigationManager
 
 <h3>Edit Genders</h3>
  
-<FormGender Gender="Gender" OnValidSubmit="Edit"></FormGender>
+<FormGender @ref="formGender" Gender="Gender" OnValidSubmit="Edit"></FormGender>
  
 @code {
     [Parameter] public int GenderId { get; set; }
     private Gender? Gender;
+    private FormGender? formGender;
 
     protected override void OnInitialized()
     {
@@ -15,6 +17,7 @@
 
     private void Edit()
     {
-
+        formGender!.FormPostedSuccess = true;
+        navigationManager.NavigateTo("genders");
     }
 }
