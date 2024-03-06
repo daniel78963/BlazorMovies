@@ -1,4 +1,6 @@
-﻿@inject IJSRuntime js
+﻿@* @inject IJSRuntime js *@
+@inject SweetAlertService swal
+
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
 @* <EditForm Model="Gender" OnValidSubmit="OnValidSubmit"> *@
@@ -44,12 +46,22 @@
         {
             return;
         }
-        var confirm = await js.Confirm("Do you want exit and lose changes?");
+
+        // var confirm = await js.Confirm("Do you want exit and lose changes?");
+        var result = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirm",
+                Text = "Do you want exit and lose changes?",
+                Icon = SweetAlertIcon.Warning,
+                ShowCancelButton = true
+        });
+        var confirm = !string.IsNullOrEmpty(result.Value);
+        Console.WriteLine($"before confirm. {confirm}");
         if (confirm)
         {
             return;
         }
-
+        Console.WriteLine($"after confirm. {confirm}");
         context.PreventNavigation();
     }
 }
