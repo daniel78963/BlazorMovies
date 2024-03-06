@@ -1,5 +1,21 @@
 ﻿@page "/movies/search"
+@inject IRepository repository
+
+<h3>Filter Movies</h3>
+
+<div class="row g-3 align-items-center mb-3">
+    @* g-3 espacio entre columnas mb-3 margen inferior *@
+    <div class="col-sm-3">
+        <input type="text" class="form-control" id="title" placeholder="movie title"
+               @bind-value="title" @bind-value:event="oninput" onkeypress="@((KeyboardEventArgs e)=> TitleKeyPress(e))" />
+    </div>
+</div>
 
 @code {
+    private string title = "";
 
+    private void TitleKeyPress(KeyboardEventArgs e)
+    {
+
+    }
 }
