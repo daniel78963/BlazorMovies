@@ -18,12 +18,35 @@
             }
         </select>
     </div>
+
+    <div class="col-sm-6" style="display: flex;">
+        <div class="form-check me-2" >
+            <input type="checkbox" class="form-check-input" id="premieres" @bind="FuturePremieres" />
+            <label class="form-check-label" for="premieres">Future premieres</label>
+        </div>
+        <div class="form-check me-2">
+            <input type="checkbox" class="form-check-input" id="billboard" @bind="onBillboard" />
+            <label class="form-check-label" for="premieres">On billboard</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="billboard" @bind="moreVoted" />
+            <label class="form-check-label" for="moreVoted">More Voted</label>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button type="button" class="btn btn-primary">Filter</button>
+        <button type="button" class="btn btn-danger">Clean</button>
+    </div>
 </div>
 
 @code {
     private string title = "";
     private string genderSelected = "0";
     private List<Gender> genders = new List<Gender>();
+    private bool FuturePremieres = false;
+    private bool onBillboard = false;
+    private bool moreVoted = false;
 
     private void TitleKeyPress(KeyboardEventArgs e)
     {
