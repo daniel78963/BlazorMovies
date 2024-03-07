@@ -12,6 +12,10 @@
     <div class="col-sm-3">
         <select class="form-select" @bind="genderSelected">
             <option value="0">-- select gender ---</option>
+            @foreach (var item in genders)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
         </select>
     </div>
 </div>
@@ -19,6 +23,7 @@
 @code {
     private string title = "";
     private string genderSelected = "0";
+    private List<Gender> genders = new List<Gender>();
 
     private void TitleKeyPress(KeyboardEventArgs e)
     {
