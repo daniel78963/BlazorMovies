@@ -9,13 +9,22 @@
         <input type="text" class="form-control" id="title" placeholder="movie title"
                @bind-value="title" @bind-value:event="oninput" onkeypress="@((KeyboardEventArgs e)=> TitleKeyPress(e))" />
     </div>
+    <div class="col-sm-3">
+        <select class="form-select" @bind="genderSelected">
+            <option value="0">-- select gender ---</option>
+        </select>
+    </div>
 </div>
 
 @code {
     private string title = "";
+    private string genderSelected = "0";
 
     private void TitleKeyPress(KeyboardEventArgs e)
     {
-
+        if (e.Key == "Enter")
+        {
+            
+        }
     }
 }
