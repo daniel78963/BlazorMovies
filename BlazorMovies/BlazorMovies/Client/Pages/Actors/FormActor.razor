@@ -1,0 +1,45 @@
+﻿<EditForm Model="Actor" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="mb-3">
+        <label>Name</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Actor.Name"></InputText>
+            <ValidationMessage For="@(() => Actor.Name)"></ValidationMessage>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Datebirth</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Actor.DateBirth"></InputText>
+            <ValidationMessage For="@(() => Actor.DateBirth)"></ValidationMessage>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Biography</label>
+        <div>
+            
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Image</label>
+        <div>
+            
+        </div>
+    </div>
+
+    <button class="btn btn-success">Save</button>
+</EditForm>
+
+
+<h3>FormActor</h3>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public Actor Actor { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public EventCallback OnValidSubmit { get; set; }
+
+}

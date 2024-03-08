@@ -1,7 +1,25 @@
 ﻿@page "/actores/edit/{ActorId:int}"
 
-<h3>EditActor</h3>
+<h3>Edit Actor</h3>
+
+<FormActor Actor="Actor" OnValidSubmit="Edit" ></FormActor>
 
 @code {
     [Parameter] public int ActorId { get; set; }
+    Actor Actor = new     Actor();
+
+    protected override void OnInitialized()
+    {
+        Actor = new Actor
+            {
+                Id = ActorId,
+                Name = "Dani",
+                DateBirth = DateTime.Today
+            };
+    }
+
+    void Edit()
+    {
+        Console.WriteLine("Edit actors");
+    }
 }
