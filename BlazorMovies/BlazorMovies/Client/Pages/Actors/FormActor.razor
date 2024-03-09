@@ -10,7 +10,7 @@
     <div class="mb-3">
         <label>Datebirth</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Actor.DateBirth"></InputText>
+            <InputDate class="form-control" @bind-Value="@Actor.DateBirth"></InputDate>
             <ValidationMessage For="@(() => Actor.DateBirth)"></ValidationMessage>
         </div>
     </div>
