@@ -1,12 +1,12 @@
-﻿@page "/actores/edit/{ActorId:int}"
+﻿@page "/actors/edit/{ActorId:int}"
 
 <h3>Edit Actor</h3>
 
-<FormActor Actor="Actor" OnValidSubmit="Edit" ></FormActor>
+<FormActor Actor="Actor" OnValidSubmit="Edit"></FormActor>
 
 @code {
     [Parameter] public int ActorId { get; set; }
-    Actor Actor = new     Actor();
+    Actor Actor = new Actor();
 
     protected override void OnInitialized()
     {
@@ -20,6 +20,6 @@
 
     void Edit()
     {
-        Console.WriteLine("Edit actors");
+        Console.WriteLine("Edit actor");
     }
 }
