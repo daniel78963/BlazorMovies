@@ -15,13 +15,10 @@
         </div>
     </div>
     <div class="mb-3">
-        <label>Biography</label>
-        <div>
-            
-        </div>
+        <InputImage Label="Photo" ImageSelected="ImgSelected" ImageURL="imgURL"></InputImage>
     </div>
     <div class="mb-3">
-        <label>Image</label>
+        <label>Biography</label>
         <div>
             
         </div>
@@ -39,4 +36,20 @@
     [EditorRequired]
     public EventCallback OnValidSubmit { get; set; }
 
+    string? imgURL;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(Actor.Photo))
+        {
+            imgURL = Actor.Photo;
+            Actor.Photo = null;
+        }
+    }
+
+    private void ImgSelected(string imgBase64)
+    {
+        Actor.Photo = imgBase64;
+        imgURL = null;
+    }
 }

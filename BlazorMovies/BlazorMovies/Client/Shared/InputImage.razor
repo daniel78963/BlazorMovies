@@ -1,0 +1,48 @@
+﻿<div>
+    <label>@Label</label>
+    <div>
+        @* <InputFile multiple OnChange="OnChange" accept=".jpg,.jpeg,.png"></InputFile> *@
+        <InputFile OnChange="OnChange" accept=".jpg,.jpeg,.png"></InputFile>
+    </div>
+</div>
+
+<div>
+    @if(imgBase64 is not null)
+    {
+        <div>
+            <div style="margin: 10px;">
+                <img src="data:image/jpeg;base64, @imgBase64" style="width:400px;" />
+            </div>
+        </div>
+    }
+    @if (ImageURL is not null)
+    {
+        <div>
+            <div style="margin: 10px;">
+                <img src="@ImageURL" style="width:400px;" />
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "Image";
+    [Parameter] public string? ImageURL { get; set; }
+    [Parameter] public EventCallback<string> ImageSelected { get; set; }
+    private string? imgBase64;
+
+    async Task OnChange (InputFileChangeEventArgs e)
+    {
+        var images = e.GetMultipleFiles();
+
+        foreach (var image in images)
+        {
+            var aBytes = new byte[image.Size];
+            await image.OpenReadStream().ReadAsync(aBytes);
+            imgBase64 = Convert.ToBase64String(aBytes);
+            ImageURL = null;
+            await ImageSelected.InvokeAsync(imgBase64);
+            StateHasChanged(); //forzar el componente a mostrar cambios
+        }
+    }
+}
