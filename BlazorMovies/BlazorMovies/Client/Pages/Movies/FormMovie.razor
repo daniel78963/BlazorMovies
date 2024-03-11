@@ -1,0 +1,63 @@
+﻿<EditForm Model="Movie" OnInvalidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="mb-3">
+        <label>Title</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Movie.Title"></InputText>
+            <ValidationMessage For="@(() =>Movie.Title)"></ValidationMessage>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>In Premier</label>
+        <div>
+            <InputCheckbox @bind-Value="@Movie.InPremier"></InputCheckbox>
+            <ValidationMessage For="@(() =>Movie.InPremier)"></ValidationMessage>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Release Date</label>
+        <div>
+            <InputDate class="form-control" @bind-Value="@Movie.DateLaunch"></InputDate>
+            <ValidationMessage For="@(() =>Movie.DateLaunch)"></ValidationMessage>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <InputImage Label="Poster" ImageSelected="ImgSelected" ImageURL="imgURL"></InputImage>
+    </div>
+
+    <div class="mb-3 form-markdown">
+        <InputMarkdown @bind-Value="@Movie.Summary" For="@(() => Movie.Summary)" Label="Summary">
+        </InputMarkdown>
+    </div>
+
+    <button class="btn btn-success">Save</button>
+</EditForm>
+
+@code {
+    [EditorRequired]
+    [Parameter] public Movie Movie { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public EventCallback OnValidSubmit { get; set; }
+
+    string? imgURL;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(Movie.Poster))
+        {
+            imgURL = Movie.Poster;
+            Movie.Poster = null;
+        }
+    }
+
+    private void ImgSelected(string imgBase64)
+    {
+        Movie.Poster = imgBase64;
+        imgURL = null;
+    }
+}
