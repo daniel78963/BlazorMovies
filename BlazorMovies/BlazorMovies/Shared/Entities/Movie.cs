@@ -2,9 +2,13 @@
 {
     public class Movie
     {
+        public int Id { get; set; }
         public string? Title { get; set; }
+        public string? Summary { get; set; }
+        public bool InPremier { get; set; }
+        public string? Trailer { get; set; }  
         public DateTime DateLaunch { get; set; }
-        public string Poster { get; set; } = null!;
+        public string? Poster { get; set; } 
         public string? TitleShort
         {
             get
