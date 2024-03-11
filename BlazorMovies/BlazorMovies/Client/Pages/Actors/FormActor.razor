@@ -17,11 +17,9 @@
     <div class="mb-3">
         <InputImage Label="Photo" ImageSelected="ImgSelected" ImageURL="imgURL"></InputImage>
     </div>
-    <div class="mb-3">
-        <label>Biography</label>
-        <div>
-            
-        </div>
+    <div class="mb-3 form-markdown">
+        <InputMarkdown @bind-Value="@Actor.Biography" For="@(() => Actor.Biography)" Label="Biography">
+        </InputMarkdown>
     </div>
 
     <button class="btn btn-success">Save</button>

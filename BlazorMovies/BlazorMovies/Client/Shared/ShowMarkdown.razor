@@ -1,5 +1,27 @@
-﻿<h3>ShowMarkdown</h3>
+﻿@using Markdig
+
+@if (string.IsNullOrEmpty(ContentHTML))
+{
+    if (TemplateLoad is not null)
+    {
+        @TemplateLoad
+    }
+}
+else
+{
+        @((MarkupString)ContentHTML)
+}
 
 @code {
+    [Parameter] public string? ContentMarkdown { get; set; }
+    [Parameter] public RenderFragment TemplateLoad { get; set; } = null!;
+    private string? ContentHTML;
 
+    protected override void OnParametersSet()
+    {
+        if (ContentMarkdown is not null)
+        {
+            ContentHTML = Markdown.ToHtml(ContentMarkdown);
+        }
+    }
 }
