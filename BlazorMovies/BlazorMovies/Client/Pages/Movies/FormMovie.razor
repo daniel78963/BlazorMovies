@@ -36,7 +36,7 @@
     <div class="mb-3">
         <label>Genders</label>
         <div>
-            <SelectorMultiple></SelectorMultiple>
+            <SelectorMultiple NoSelecteds="NoSelecteds" Selecteds="Selecteds"></SelectorMultiple>
         </div>
     </div>
 
@@ -53,8 +53,7 @@
     [EditorRequired]
     public EventCallback OnValidSubmit { get; set; }
 
-    [Parameter]
-    [EditorRequired]
+    [Parameter] 
     public List<Gender> GendersSelecteds { get; set; } = new List<Gender>();
 
     [Parameter]
