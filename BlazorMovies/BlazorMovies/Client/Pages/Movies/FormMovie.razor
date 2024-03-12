@@ -33,10 +33,19 @@
         </InputMarkdown>
     </div>
 
+    <div class="mb-3">
+        <label>Genders</label>
+        <div>
+            <SelectorMultiple></SelectorMultiple>
+        </div>
+    </div>
+
     <button class="btn btn-success">Save</button>
 </EditForm>
 
 @code {
+    string? imgURL;
+
     [EditorRequired]
     [Parameter] public Movie Movie { get; set; } = null!;
 
@@ -44,7 +53,16 @@
     [EditorRequired]
     public EventCallback OnValidSubmit { get; set; }
 
-    string? imgURL;
+    [Parameter]
+    [EditorRequired]
+    public List<Gender> GendersSelecteds { get; set; } = new List<Gender>();
+
+    [Parameter]
+    [EditorRequired]
+    public List<Gender> GendersNoSelecteds { get; set; } = new List<Gender>();
+
+    private List<SelectorMultipleModel> Selecteds { get; set; } = new List<SelectorMultipleModel>();
+    private List<SelectorMultipleModel> NoSelecteds { get; set; } = new List<SelectorMultipleModel>();
 
     protected override void OnInitialized()
     {
@@ -53,6 +71,9 @@
             imgURL = Movie.Poster;
             Movie.Poster = null;
         }
+
+        Selecteds = GendersSelecteds.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Name)).ToList();
+        NoSelecteds = GendersNoSelecteds.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Name)).ToList();
     }
 
     private void ImgSelected(string imgBase64)

@@ -7,6 +7,17 @@
 
 @code {
     private Movie Movie = new Movie();
+    private List<Gender> GendersNoSelected = new List<Gender>();
+
+    protected override void OnInitialized()
+    {
+        GendersNoSelected = new List<Gender>()
+        {
+            new Gender(){Id = 1, Name = "Fiction"},
+            new Gender(){Id = 1, Name = "Action"},
+            new Gender(){Id = 1, Name = "Comedy"}
+        };
+    }
 
     void Create()
     {
