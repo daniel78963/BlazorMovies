@@ -30,5 +30,6 @@ namespace BlazorMovies.Shared.Entities
                 }
             }
         }
+        public List<GenderMovie> GenderMovies { get; set; } = new List<GenderMovie>(); 
     }
 }
