@@ -25,21 +25,25 @@
 
     private void Selection(SelectorMultipleModel item)
     {
-        
+        NoSelecteds.Remove(item);
+        Selecteds.Add(item);
     }
 
     private void UnSelection(SelectorMultipleModel item)
     {
-
+        Selecteds.Remove(item);
+        NoSelecteds.Add(item); 
     }
 
     private void SelectAll()
     {
-
+        Selecteds.AddRange(NoSelecteds);
+        NoSelecteds.Clear();
     }
 
     private void UnSelectAll()
     {
-
+        NoSelecteds.AddRange(Selecteds);
+        Selecteds.Clear();
     }
 }
