@@ -1,10 +1,21 @@
 ﻿@using Blazored.Typeahead
 @typeparam T
 
-<BlazoredTypeahead TValue="T" TItem="T" SearchMethod="SearchMethod">
+<BlazoredTypeahead TValue="T" TItem="T" SearchMethod="SearchMethod" Value="sampleItem" ValueChanged="ElementSelected">
 
 </BlazoredTypeahead>
 
 @code {
-    [Parameter] public Func<string, Task<IEnumerable<T>>> SearchMethod {get; set;} = null!;
+    [Parameter, EditorRequired] public Func<string, Task<IEnumerable<T>>> SearchMethod {get; set;} = null!;
+    [Parameter] public List<T> ElementsSelected { get; set; } = new List<T>();
+    T? sampleItem = default(T);
+
+    private  void ElementSelected(T item)
+    {
+        if (!ElementsSelected.Any(x=>x.Equals(item)))
+        {
+            ElementsSelected.Add(item);
+        }
+        sampleItem = default(T); //esto es para que cuando se seleccione, se limpie el textbox
+    }
 }
