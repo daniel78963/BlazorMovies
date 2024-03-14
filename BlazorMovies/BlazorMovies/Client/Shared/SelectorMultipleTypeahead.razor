@@ -1,7 +1,8 @@
 ﻿@using Blazored.Typeahead
 @typeparam T
 
-<BlazoredTypeahead TValue="T" TItem="T" SearchMethod="SearchMethod" Value="sampleItem" ValueChanged="ElementSelected">
+<BlazoredTypeahead TValue="T" TItem="T" SearchMethod="SearchMethod" Value="sampleItem" ValueChanged="ElementSelected"
+    ValueExpression="@(() => sampleItem)">
 
 </BlazoredTypeahead>
 
