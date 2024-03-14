@@ -3,12 +3,20 @@
 
 <BlazoredTypeahead TValue="T" TItem="T" SearchMethod="SearchMethod" Value="sampleItem" ValueChanged="ElementSelected"
     ValueExpression="@(() => sampleItem)">
-
+    <ResultTemplate>
+        @* //RenderFragment *@
+        @renderFragment(context) @* //Con el context le podemos pasar los elementos del SearchMethod que recibamos *@
+    </ResultTemplate>
+    <NotFoundTemplate>
+        Sorry, no records found!
+    </NotFoundTemplate>
+    <SelectedTemplate></SelectedTemplate> @* //Es un requerimiento de Typeahead *@
 </BlazoredTypeahead>
 
 @code {
     [Parameter, EditorRequired] public Func<string, Task<IEnumerable<T>>> SearchMethod {get; set;} = null!;
     [Parameter] public List<T> ElementsSelected { get; set; } = new List<T>();
+    [Parameter, EditorRequired] public RenderFragment<T> renderFragment { get; set; } = null!;
     T? sampleItem = default(T);
 
     private  void ElementSelected(T item)
