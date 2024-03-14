@@ -2,10 +2,10 @@
 @typeparam T
 
 <BlazoredTypeahead TValue="T" TItem="T" SearchMethod="SearchMethod" Value="sampleItem" ValueChanged="ElementSelected"
-    ValueExpression="@(() => sampleItem)">
+                   ValueExpression="@(() => sampleItem)">
     <ResultTemplate>
         @* //RenderFragment *@
-        @renderFragment(context) @* //Con el context le podemos pasar los elementos del SearchMethod que recibamos *@
+        @MyResultTemplate(context) @* //Con el context le podemos pasar los elementos del SearchMethod que recibamos *@
     </ResultTemplate>
     <NotFoundTemplate>
         Sorry, no records found!
@@ -13,15 +13,36 @@
     <SelectedTemplate></SelectedTemplate> @* //Es un requerimiento de Typeahead *@
 </BlazoredTypeahead>
 
+<ul class="list-group">
+    @foreach (var item in ElementsSelected)
+    {
+        <li draggable="true" 
+            @ondragstart="@(() => HandleDragStart(item))"
+            @ondragover="@(() => HandleDragOver(item))"
+            class="list-group-item list-group-item-action">
+            @MyListTemplate(item)
+            <span @onclick="@(() => ElementsSelected.Remove(item))"
+                class="badge bg-primary rounded-pill" style="cursor:pointer" ></span>
+        </li>
+    }
+</ul>
+
 @code {
-    [Parameter, EditorRequired] public Func<string, Task<IEnumerable<T>>> SearchMethod {get; set;} = null!;
+    [Parameter, EditorRequired] public Func<string, Task<IEnumerable<T>>> SearchMethod { get; set; } = null!;
     [Parameter] public List<T> ElementsSelected { get; set; } = new List<T>();
-    [Parameter, EditorRequired] public RenderFragment<T> renderFragment { get; set; } = null!;
+    [Parameter, EditorRequired] public RenderFragment<T> MyResultTemplate { get; set; } = null!;
+    [Parameter, EditorRequired] public RenderFragment<T> MyListTemplate { get; set; } = null!;
     T? sampleItem = default(T);
 
-    private  void ElementSelected(T item)
+
+    private void HandleDragStart(T item)
     {
-        if (!ElementsSelected.Any(x=>x.Equals(item)))
+        
+    }
+
+    private void ElementSelected(T item)
+    {
+        if (!ElementsSelected.Any(x => x.Equals(item)))
         {
             ElementsSelected.Add(item);
         }
