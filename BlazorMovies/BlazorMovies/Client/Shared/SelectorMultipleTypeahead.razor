@@ -33,11 +33,28 @@
     [Parameter, EditorRequired] public RenderFragment<T> MyResultTemplate { get; set; } = null!;
     [Parameter, EditorRequired] public RenderFragment<T> MyListTemplate { get; set; } = null!;
     T? sampleItem = default(T);
-
+    T? itemDragged;
 
     private void HandleDragStart(T item)
     {
-        
+        itemDragged = item;
+    }
+
+    private void HandleDragOver(T item)
+    {
+        if (itemDragged is null)
+        {
+            return;
+        }
+
+        if (!item.Equals(itemDragged))
+        {
+            //Vamos a intercambiar los indices para intercambiarlos de orden
+            var indexElementDragged = ElementsSelected.IndexOf(itemDragged);
+            var indexElement = ElementsSelected.IndexOf(item);
+            ElementsSelected[indexElement] = itemDragged;
+            ElementsSelected[indexElementDragged] = item;
+        }
     }
 
     private void ElementSelected(T item)
