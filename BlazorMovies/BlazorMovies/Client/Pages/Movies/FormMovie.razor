@@ -43,8 +43,13 @@
     <div class="mb-3">
         <label>Actors</label>
         <div>
-            <SelectorMultipleTypeahead Context="Actor" SearchMethod="SearchActors">
-
+            <SelectorMultipleTypeahead Context="Actor" SearchMethod="SearchActors" ElementsSelected="ActorsSeleted">
+                <MyListTemplate>
+                    @Actor.Name
+                </MyListTemplate>
+                <MyResultTemplate>
+                    <img style="width: 50px;" src="@Actor.Photo" /> 
+                </MyResultTemplate>
             </SelectorMultipleTypeahead>
         </div>
     </div>
@@ -68,6 +73,9 @@
     [Parameter]
     [EditorRequired]
     public List<Gender> GendersNoSelecteds { get; set; } = new List<Gender>();
+
+    [Parameter]
+    public List<Actor> ActorsSeleted { get; set; } = new List<Actor>();
 
     private List<SelectorMultipleModel> Selecteds { get; set; } = new List<SelectorMultipleModel>();
     private List<SelectorMultipleModel> NoSelecteds { get; set; } = new List<SelectorMultipleModel>();
