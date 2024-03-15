@@ -40,6 +40,15 @@
         </div>
     </div>
 
+    <div class="mb-3">
+        <label>Actors</label>
+        <div>
+            <SelectorMultipleTypeahead Context="Actor" SearchMethod="SearchActors">
+
+            </SelectorMultipleTypeahead>
+        </div>
+    </div>
+
     <button class="btn btn-success">Save</button>
 </EditForm>
 
@@ -53,7 +62,7 @@
     [EditorRequired]
     public EventCallback OnValidSubmit { get; set; }
 
-    [Parameter] 
+    [Parameter]
     public List<Gender> GendersSelecteds { get; set; } = new List<Gender>();
 
     [Parameter]
@@ -79,5 +88,15 @@
     {
         Movie.Poster = imgBase64;
         imgURL = null;
+    }
+
+    private async Task<IEnumerable<Actor>> SearchActors(string searchText)
+    {
+        return new List<Actor>(){
+        new Actor{Id = 1, Name = "Arnold Schwarzenegger", Photo = "https://www.schwarzenegger.com/assets/images/img-3.jpg"},
+        new Actor{Id = 2, Name = "Amitabh Bachchan", Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/BACHCHAN_Amitabh_03-24x30-2009b.jpg/220px-BACHCHAN_Amitabh_03-24x30-2009b.jpg"},
+        new Actor { Id = 3, Name = "Tom Hanks", Photo = "https://imagenes.elpais.com/resizer/Zpcdgu5_1dZVGR9i1LKACPG_hRg=/1960x1470/filters:focal(1773x1456:1783x1466)/cloudfront-eu-central-1.images.arcpublishing.com/prisa/AKSN7LR4ONDX7GB2YW2HWNVNCU.jpg" }
+        };
+
     }
 }
