@@ -16,13 +16,14 @@
 <ul class="list-group">
     @foreach (var item in ElementsSelected)
     {
-        <li draggable="true" 
+        <li draggable="true"
             @ondragstart="@(() => HandleDragStart(item))"
             @ondragover="@(() => HandleDragOver(item))"
             class="list-group-item list-group-item-action">
             @MyListTemplate(item)
             <span @onclick="@(() => ElementsSelected.Remove(item))"
-                class="badge bg-primary rounded-pill" style="cursor:pointer" ></span>
+                  class="badge bg-primary rounded-pill" style="cursor:pointer">
+                  X</span>
         </li>
     }
 </ul>
