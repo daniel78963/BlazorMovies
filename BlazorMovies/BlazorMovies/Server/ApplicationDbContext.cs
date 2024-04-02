@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BlazorMovies.Shared.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorMovies.Server
 {
@@ -8,5 +9,8 @@ namespace BlazorMovies.Server
         {
             //estamos pasando que parametros o condiciones vamos a usar para nuestros repositorios, ej: db de que tipo
         }
+
+        public DbSet<Gender> Genders => Set<Gender>();
+
     }
 }
