@@ -15,11 +15,13 @@ namespace BlazorMovies.Server
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<GenderMovie>().HasKey(x => new { x.MovieId, x.GenderId });
+            modelBuilder.Entity<MovieActor>().HasKey(x => new { x.MovieId, x.ActorId });
         }
 
         public DbSet<Actor> Actors => Set<Actor>();
         public DbSet<Gender> Genders => Set<Gender>();
         public DbSet<Movie> Movies => Set<Movie>();
         public DbSet<GenderMovie> GendersMovies => Set<GenderMovie>();
+        public DbSet<MovieActor> MoviesActors => Set<MovieActor>();
     }
 }

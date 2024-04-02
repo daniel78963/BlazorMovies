@@ -10,6 +10,7 @@ namespace BlazorMovies.Shared.Entities
         public string? Biography { get; set; }
         public string? Photo { get; set; }
         public DateTime? DateBirth { get; set; }
+        public List<MovieActor> MoviesActor { get; set; } = new List<MovieActor>();
 
         public override bool Equals(object? obj)
         {
