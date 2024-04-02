@@ -6,7 +6,7 @@
         public int GenderId { get; set; }
 
         //Por convensión debe ir MovieId igual que Movie, así EntityFramework entiende que es la llave foranea 
-        public Movie Movie { get; set; }
-        public Gender Gender { get; set; }
+        public Movie? Movie { get; set; }
+        public Gender? Gender { get; set; }
     }
 }
