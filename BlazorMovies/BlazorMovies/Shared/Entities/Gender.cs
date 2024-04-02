@@ -8,5 +8,6 @@ namespace BlazorMovies.Shared.Entities
 
         [Required(ErrorMessage = "The {0} field is required")]
         public string Name { get; set; }
+        public List<GenderMovie> GenderMovies { get; set; } = new List<GenderMovie>();
     }
 }
