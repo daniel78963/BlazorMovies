@@ -8,6 +8,5 @@
         public Movie? Movie { get; set; }
         public string? Character { get; set; }
         public int Order { get; set; }
-
     }
 }
