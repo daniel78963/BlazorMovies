@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlazorMovies.Shared.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorMovies.Server.Controllers
 {
-    public class GendersController : Controller
+    [Route("api/genders")]
+    public class GendersController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext context;
+
+        public GendersController(ApplicationDbContext context)
         {
-            return View();
+            this.context = context;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> PostAsync(Gender gender)
+        {
+            context.Add(gender);
+            await context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
