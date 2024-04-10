@@ -13,12 +13,19 @@ namespace BlazorMovies.Server.Controllers
             this.context = context;
         }
 
+        //[HttpPost]
+        //public async Task<ActionResult> PostAsync(Gender gender)
+        //{
+        //    context.Add(gender);
+        //    await context.SaveChangesAsync();
+        //    return Ok();
+        //}
         [HttpPost]
-        public async Task<ActionResult> PostAsync(Gender gender)
+        public async Task<ActionResult<int>> PostAsync(Gender gender)
         {
             context.Add(gender);
             await context.SaveChangesAsync();
-            return Ok();
+            return gender.Id;
         }
     }
 }
