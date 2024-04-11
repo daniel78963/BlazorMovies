@@ -31,6 +31,18 @@ namespace BlazorMovies.Client.Repositories
             {
                 return await HttpResponseMessage.Content.ReadAsStringAsync();
             }
+            else if(statusCode == HttpStatusCode.Unauthorized)
+            {
+                return "You need loggin to do this";
+            }
+            else if( statusCode == HttpStatusCode.Forbidden)
+            {
+                return "You do not have permissions to do this";
+            }
+            else
+            {
+                return "An unexpected error has occurred";
+            }
         }
     }
 }

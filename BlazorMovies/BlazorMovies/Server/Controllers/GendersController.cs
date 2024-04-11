@@ -24,6 +24,8 @@ namespace BlazorMovies.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> PostAsync(Gender gender)
         {
+            //return BadRequest("Este es un mensaje de error personalizado");
+            //throw new NotImplementedException();
             context.Add(gender);
             await context.SaveChangesAsync();
             return gender.Id;

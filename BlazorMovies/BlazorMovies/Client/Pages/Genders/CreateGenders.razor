@@ -16,7 +16,8 @@
         var httpResponse = await repository.PostAsync("api/genders", Gender);
         if (httpResponse.Error)
         {
-            await swal.FireAsync("Error", "An error ocurred", SweetAlertIcon.Error);
+            var errorMessage = await httpResponse.GetMessageError();
+            await swal.FireAsync("Error", errorMessage, SweetAlertIcon.Error);
         }
         else
         {
