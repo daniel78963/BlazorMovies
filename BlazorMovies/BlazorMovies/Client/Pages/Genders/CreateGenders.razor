@@ -1,5 +1,7 @@
 ﻿@page "/genders/create"
 @inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
 
 <h3>Create Genders</h3>
 
@@ -9,9 +11,17 @@
     private Gender Gender = new Gender();
     private FormGender? formGender;
 
-    private void Create()
+    private async Task Create()
     {
-        formGender!.FormPostedSuccess = true;
-        navigationManager.NavigateTo("genders"); 
+        var httpResponse = await repository.PostAsync("api/genders", Gender);
+        if (httpResponse.Error)
+        {
+            await swal.FireAsync("Error", "An error ocurred", SweetAlertIcon.Error);
+        }
+        else
+        {
+            formGender!.FormPostedSuccess = true;
+            navigationManager.NavigateTo("genders");
+        }
     }
 }

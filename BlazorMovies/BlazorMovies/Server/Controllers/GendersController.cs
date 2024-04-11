@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlazorMovies.Server.Controllers
 {
     [Route("api/genders")]
+    [ApiController]
     public class GendersController : ControllerBase
     {
         private readonly ApplicationDbContext context;
