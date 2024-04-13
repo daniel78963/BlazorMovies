@@ -5,11 +5,14 @@
 
 <h3>Create Actor</h3>
 
-<FormActor @ref="formActor" Actor="Actor" OnValidSubmit="Create"></FormActor>
+@* <FormActor @ref="formActor" Actor="Actor" OnValidSubmit="Create"></FormActor> *@
+
+<FormActor OnValidSubmit="Create" Actor="Actor">
+</FormActor>
 
 @code {
     private Actor Actor = new Actor();
-    private FormActor? formActor;
+    // private FormActor? formActor;
 
     private async Task Create()
     {
