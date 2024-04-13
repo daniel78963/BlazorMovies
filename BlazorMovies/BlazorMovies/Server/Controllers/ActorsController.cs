@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlazorMovies.Shared.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorMovies.Server.Controllers
 {
@@ -11,6 +12,14 @@ namespace BlazorMovies.Server.Controllers
         public ActorsController(ApplicationDbContext context)
         {
             this.context = context;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> PostAsync(Actor actor)
+        {
+            context.Add(actor);
+            await context.SaveChangesAsync();
+            return actor.Id;
         }
     }
 }
