@@ -1,16 +1,29 @@
 ﻿@page "/actors/create"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
 
 <h3>Create Actor</h3>
 
-<FormActor OnValidSubmit="Create" Actor="Actor">
-
-</FormActor>
+<FormActor @ref="formActor" Actor="Actor" OnValidSubmit="Create"></FormActor>
 
 @code {
     private Actor Actor = new Actor();
+    private FormActor? formActor;
 
-    void Create()
+    private async Task Create()
     {
-        Console.WriteLine("crear actor");
+        // Console.WriteLine("crear actor");
+        var httpResponse = await repository.PostAsync("api/actors", Actor);
+        if (httpResponse.Error)
+        {
+            var errorMessage = await httpResponse.GetMessageError();
+            await swal.FireAsync("Error", errorMessage, SweetAlertIcon.Error);
+        }
+        else
+        {
+            // formActor!.FormPostedSuccess = true;
+            navigationManager.NavigateTo("actors");
+        }
     }
 }
