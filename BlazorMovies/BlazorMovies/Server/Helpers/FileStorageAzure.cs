@@ -1,4 +1,6 @@
 ﻿
+using Azure.Storage.Blobs;
+
 namespace BlazorMovies.Server.Helpers
 {
     public class FileStorageAzure : IStorageFiles
@@ -14,9 +16,22 @@ namespace BlazorMovies.Server.Helpers
             throw new NotImplementedException();
         }
 
-        public Task<string> SaveFile(byte[] content, string extension, string nameContainer)
+        public async Task<string> SaveFile(byte[] content, string extension, string nameContainer)
         {
-            throw new NotImplementedException();
+            var client = new BlobContainerClient(connectionString, nameContainer);
+            //Crear el contenedor si no existe
+            await client.CreateIfNotExistsAsync();
+            client.SetAccessPolicy(Azure.Storage.Blobs.Models.PublicAccessType.Blob);
+
+            var nameFile = $"{Guid.NewGuid()}{extension}";
+            var blob = client.GetBlobClient(nameFile);
+
+            using (var ms = new MemoryStream(content))
+            {
+                await blob.UploadAsync(ms);
+            }
+
+            return blob.Uri.ToString();
         }
     }
 }
