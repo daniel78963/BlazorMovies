@@ -11,9 +11,14 @@ namespace BlazorMovies.Server.Helpers
             connectionString = configuration.GetConnectionString("AzureStorage")!;
         }
 
-        public Task DeleteFile(string path, string nameContainer)
+        public async Task DeleteFile(string path, string nameContainer)
         {
-            throw new NotImplementedException();
+            var client = new BlobContainerClient(connectionString, nameContainer);
+            //Crear el contenedor si no existe
+            await client.CreateIfNotExistsAsync();
+            var nameFile = Path.GetFileName(path);
+            var blob = client.GetBlobClient(nameFile);
+            await blob.DeleteIfExistsAsync();
         }
 
         public async Task<string> SaveFile(byte[] content, string extension, string nameContainer)
@@ -29,7 +34,7 @@ namespace BlazorMovies.Server.Helpers
             using (var ms = new MemoryStream(content))
             {
                 await blob.UploadAsync(ms);
-            }
+            } 
 
             return blob.Uri.ToString();
         }
