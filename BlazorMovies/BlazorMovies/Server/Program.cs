@@ -1,4 +1,5 @@
 using BlazorMovies.Server;
+using BlazorMovies.Server.Helpers;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("name=DefaultConnection"));
+
+builder.Services.AddTransient<IStorageFiles, FileStorageAzure>();
 
 var app = builder.Build();
 

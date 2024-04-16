@@ -25,7 +25,7 @@ namespace BlazorMovies.Server.Controllers
             {
                 //pasar de base64 a arreglo de bytes
                 var photoActor = Convert.FromBase64String(actor.Photo);
-                actor.Photo = await storageFiles.SaveFile(photoActor, "jpg", conteiner);
+                actor.Photo = await storageFiles.SaveFile(photoActor, ".jpg", conteiner);
             }
 
             context.Add(actor);
