@@ -14,7 +14,14 @@ namespace BlazorMovies.Server.Helpers
 
         public Task DeleteFile(string path, string nameContainer)
         {
-            throw new NotImplementedException();
+            var nameFile = Path.GetFileName(path);
+            var directoryFile = Path.Combine(env.WebRootPath, nameContainer, nameFile);
+            if (File.Exists(directoryFile))
+            {
+                File.Delete(directoryFile);
+            }
+
+            return Task.CompletedTask;
         }
 
         public async Task<string> SaveFile(byte[] content, string extension, string nameContainer)
