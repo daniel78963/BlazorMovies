@@ -38,7 +38,8 @@ namespace BlazorMovies.Server.Helpers
             await File.WriteAllBytesAsync(pathSave, content);
 
             var urlActual = $"{httpContextAccessor!.HttpContext!.Request.Scheme}://{httpContextAccessor.HttpContext.Request.Host}";
-            var pathDB = Path.Combine(urlActual, nameContainer, nameFile);
+            // folder\directory\file
+            var pathDB = Path.Combine(urlActual, nameContainer, nameFile).Replace("\\","/");
             return pathDB;
         }
     }

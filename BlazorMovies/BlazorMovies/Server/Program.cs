@@ -12,7 +12,9 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("name=DefaultConnection"));
 
-builder.Services.AddTransient<IStorageFiles, FileStorageAzure>();
+//builder.Services.AddTransient<IStorageFiles, FileStorageAzure>();
+builder.Services.AddTransient<IStorageFiles, FileStorageLocal>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
