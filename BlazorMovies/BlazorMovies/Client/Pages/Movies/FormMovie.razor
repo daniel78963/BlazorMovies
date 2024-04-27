@@ -46,7 +46,7 @@
         <div>
             <SelectorMultipleTypeahead Context="Actor" SearchMethod="SearchActors" ElementsSelected="ActorsSeleted">
                 <MyListTemplate>
-                    @Actor.Name
+                    @Actor.Name / <input type="text" placeholder="Character" @bind="Actor.Character" />
                 </MyListTemplate>
                 <MyResultTemplate>
                     <img style="width: 50px;" src="@Actor.Photo" />
@@ -112,5 +112,8 @@
     private async Task OnDataAnnotationsValidated()
     {
         Movie.GendersMovie = Selecteds.Select(x => new GenderMovie { GenderId = int.Parse(x.Key) }).ToList();
+        Movie.MoviesActor = ActorsSeleted.Select(x => new MovieActor { ActorId = x.Id, Character = x.Character }).ToList();
+
+        await OnValidSubmit.InvokeAsync();
     }
 }
