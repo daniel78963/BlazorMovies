@@ -1,5 +1,7 @@
 ﻿@page "/movies/create"
 @inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
 
 <h3>Create Movie</h3>
 
@@ -19,10 +21,21 @@
         };
     }
 
-    void Create()
+    async Task Create()
     {
-        Console.WriteLine(navigationManager.BaseUri);
-        Console.WriteLine(navigationManager.Uri);
-        navigationManager.NavigateTo("movie");
+        // Console.WriteLine(navigationManager.BaseUri);
+        // Console.WriteLine(navigationManager.Uri);
+        // navigationManager.NavigateTo("movie");
+        var httpResponse = await repository.PostAsync("api/movies", Movie);
+
+        if (httpResponse.Error)
+        {
+            var errormessage = await httpResponse.GetMessageError();
+            await swal.FireAsync("Error", errormessage, SweetAlertIcon.Error);
+        }
+        else
+        {
+            navigationManager.NavigateTo($"/movie/{id}/{Movie.Title.Replace(" ", "-")}");
+        }
     }
 }
