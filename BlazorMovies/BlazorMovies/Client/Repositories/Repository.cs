@@ -21,6 +21,26 @@ namespace BlazorMovies.Client.Repositories
             return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
         }
 
+        public async Task<HttpResponseWrapper<TResponse>> PostAsync<T, TResponse>(string url, T send)
+        {
+            var sendJSON = JsonSerializer.Serialize(send);
+            var sendContent = new StringContent(sendJSON, Encoding.UTF8, "application/json");
+            var responseHttp = await httpClient.PostAsync(url, sendContent);
+
+            if (responseHttp.IsSuccessStatusCode)
+            {
+                 
+            }
+
+            return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
+        }
+
+        private async Task<T> DeserializeAnswer<T> (HttpResponseMessage httpResponse, JsonSerializerOptions options)
+        {
+            var answerString =  await httpResponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(answerString, options);
+        }
+
         public List<Movie> GetMovies()
         {
             return new List<Movie>()
