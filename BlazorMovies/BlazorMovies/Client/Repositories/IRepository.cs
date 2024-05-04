@@ -6,5 +6,6 @@ namespace BlazorMovies.Client.Repositories
     {
         List<Movie> GetMovies();
         Task<HttpResponseWrapper<object>> PostAsync<T>(string url, T send);
+        Task<HttpResponseWrapper<TResponse>> PostAsync<T, TResponse>(string url, T send);
     }
 }

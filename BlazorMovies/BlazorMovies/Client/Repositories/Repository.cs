@@ -7,6 +7,10 @@ namespace BlazorMovies.Client.Repositories
     public class Repository : IRepository
     {
         private readonly HttpClient httpClient;
+        private JsonSerializerOptions OptionsDefaultJSON => new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
 
         public Repository(HttpClient httpClient)
         {
@@ -29,7 +33,8 @@ namespace BlazorMovies.Client.Repositories
 
             if (responseHttp.IsSuccessStatusCode)
             {
-                 
+                var response = await DeserializeAnswer<TResponse>(responseHttp, OptionsDefaultJSON);
+                return new HttpResponseWrapper<TResponse> (  response, error: false , responseHttp);
             }
 
             return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
