@@ -34,15 +34,16 @@ namespace BlazorMovies.Client.Repositories
             if (responseHttp.IsSuccessStatusCode)
             {
                 var response = await DeserializeAnswer<TResponse>(responseHttp, OptionsDefaultJSON);
-                return new HttpResponseWrapper<TResponse> (  response, error: false , responseHttp);
+                return new HttpResponseWrapper<TResponse>(response, error: false, responseHttp);
             }
 
-            return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
+            return new HttpResponseWrapper<TResponse>(default,
+                !responseHttp.IsSuccessStatusCode, responseHttp);
         }
 
-        private async Task<T> DeserializeAnswer<T> (HttpResponseMessage httpResponse, JsonSerializerOptions options)
+        private async Task<T> DeserializeAnswer<T>(HttpResponseMessage httpResponse, JsonSerializerOptions options)
         {
-            var answerString =  await httpResponse.Content.ReadAsStringAsync();
+            var answerString = await httpResponse.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<T>(answerString, options);
         }
 
