@@ -19,7 +19,7 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Post(Movie movie)
+        public async Task<ActionResult<int>> PostAsync(Movie movie)
         {
             if (!string.IsNullOrWhiteSpace(movie.Poster))
             {

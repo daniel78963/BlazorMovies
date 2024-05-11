@@ -16,6 +16,14 @@
             <ValidationMessage For="@(() =>Movie.InPremier)"></ValidationMessage>
         </div>
     </div>
+    
+    <div class="mb-3">
+        <label>Trailer</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Movie.Trailer"></InputText>
+            <ValidationMessage For="@(() =>Movie.Trailer)"></ValidationMessage>
+        </div>
+    </div>
 
     <div class="mb-3">
         <label>Release Date</label>
@@ -111,6 +119,7 @@
 
     private async Task OnDataAnnotationsValidated()
     {
+        Console.WriteLine("validations init");
         Movie.GendersMovie = Selecteds.Select(x => new GenderMovie { GenderId = int.Parse(x.Key) }).ToList();
         Movie.MoviesActor = ActorsSeleted.Select(x => new MovieActor { ActorId = x.Id, Character = x.Character }).ToList();
 
