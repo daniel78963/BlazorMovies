@@ -14,9 +14,9 @@
     private Actor Actor = new Actor();
     // private FormActor? formActor;
 
-    private async Task Create()
+    async Task Create()
     {
-        // Console.WriteLine("crear actor");
+        Console.WriteLine("crear actor");
         var httpResponse = await repository.PostAsync("api/actors", Actor);
         if (httpResponse.Error)
         {

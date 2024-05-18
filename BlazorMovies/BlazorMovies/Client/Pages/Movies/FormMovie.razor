@@ -1,127 +1,140 @@
-﻿@* <EditForm Model="Movie" OnInvalidSubmit="OnValidSubmit"> *@
-<EditForm Model="Movie" OnInvalidSubmit="OnDataAnnotationsValidated">
-    <DataAnnotationsValidator></DataAnnotationsValidator>
+﻿@* ﻿@inject IRepository repository *@
+@inject IRepository repository
+
+<EditForm Model="Movie" OnValidSubmit="OnDataAnnotationsValidated">
+    <DataAnnotationsValidator />
+
     <div class="mb-3">
         <label>Title</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Movie.Title"></InputText>
-            <ValidationMessage For="@(() =>Movie.Title)"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="@Movie.Title" />
+            <ValidationMessage For="@(() => Movie.Title)" />
         </div>
     </div>
 
     <div class="mb-3">
         <label>In Premier</label>
         <div>
-            <InputCheckbox @bind-Value="@Movie.InPremier"></InputCheckbox>
-            <ValidationMessage For="@(() =>Movie.InPremier)"></ValidationMessage>
-        </div>
-    </div>
-    
-    <div class="mb-3">
-        <label>Trailer</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@Movie.Trailer"></InputText>
-            <ValidationMessage For="@(() =>Movie.Trailer)"></ValidationMessage>
+            <InputCheckbox @bind-Value="@Movie.InPremier" />
+            <ValidationMessage For="@(() => Movie.InPremier)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Release Date</label>
+        <label>Trailer:</label>
         <div>
-            <InputDate class="form-control" @bind-Value="@Movie.DateLaunch"></InputDate>
-            <ValidationMessage For="@(() =>Movie.DateLaunch)"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="@Movie.Trailer" />
+            <ValidationMessage For="@(() => Movie.Trailer)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <InputImage Label="Poster" ImageSelected="ImgSelected" ImageURL="imgURL"></InputImage>
+        <label>Date Launch</label>
+        <div>
+            <InputDate class="form-control" @bind-Value="@Movie.DateLaunch" />
+            <ValidationMessage For="@(() => Movie.DateLaunch)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <InputImage Label="Poster" ImageSelected="ImagenSeleccionada" ImageURL="@imagenURL" />
     </div>
 
     <div class="mb-3 form-markdown">
-        <InputMarkdown @bind-Value="@Movie.Summary" For="@(() => Movie.Summary)" Label="Summary">
-        </InputMarkdown>
+        <InputMarkdown @bind-Value="@Movie.Summary"
+                       For=@(() => Movie.Summary)
+                       Label="Resumen" />
     </div>
 
     <div class="mb-3">
         <label>Genders</label>
         <div>
-            <SelectorMultiple NoSelecteds="NoSelecteds" Selecteds="Selecteds"></SelectorMultiple>
+            <SelectorMultiple NoSelecteds="NoSeleccionados" Selecteds="Seleccionados">
+
+            </SelectorMultiple>
         </div>
     </div>
 
     <div class="mb-3">
         <label>Actors</label>
         <div>
-            <SelectorMultipleTypeahead Context="Actor" SearchMethod="SearchActors" ElementsSelected="ActorsSeleted">
+            <SelectorMultipleTypeahead Context="Actor" SearchMethod="BuscarActores"
+                                       ElementsSelected="ActoresSeleccionados">
                 <MyListTemplate>
-                    @Actor.Name / <input type="text" placeholder="Character" @bind="Actor.Character" />
+                    @Actor.Name / <input type="text" placeholder="Personaje" @bind="Actor.Character" />
                 </MyListTemplate>
                 <MyResultTemplate>
-                    <img style="width: 50px;" src="@Actor.Photo" />
+                    <img style="width: 50px" src="@Actor.Photo" />
                     @Actor.Name
                 </MyResultTemplate>
             </SelectorMultipleTypeahead>
         </div>
     </div>
 
-    <button class="btn btn-success">Save</button>
+    <button class="btn btn-success">Guardar Cambios</button>
+
 </EditForm>
 
-@code {
-    string? imgURL;
 
+@code {
+    string? imagenURL;
+
+    [Parameter]
     [EditorRequired]
-    [Parameter] public Movie Movie { get; set; } = null!;
+    public Movie Movie { get; set; } = null!;
 
     [Parameter]
     [EditorRequired]
     public EventCallback OnValidSubmit { get; set; }
 
     [Parameter]
-    public List<Gender> GendersSelecteds { get; set; } = new List<Gender>();
+    public List<Gender> GendersSelected { get; set; } = new List<Gender>();
 
     [Parameter]
     [EditorRequired]
     public List<Gender> GendersNoSelecteds { get; set; } = new List<Gender>();
 
     [Parameter]
-    public List<Actor> ActorsSeleted { get; set; } = new List<Actor>();
+    public List<Actor> ActoresSeleccionados { get; set; } = new List<Actor>();
 
-    private List<SelectorMultipleModel> Selecteds { get; set; } = new List<SelectorMultipleModel>();
-    private List<SelectorMultipleModel> NoSelecteds { get; set; } = new List<SelectorMultipleModel>();
+    private List<SelectorMultipleModel> Seleccionados { get; set; } = new List<SelectorMultipleModel>();
+    private List<SelectorMultipleModel> NoSeleccionados { get; set; } = new List<SelectorMultipleModel>();
 
     protected override void OnInitialized()
     {
         if (!string.IsNullOrEmpty(Movie.Poster))
         {
-            imgURL = Movie.Poster;
+            imagenURL = Movie.Poster;
             Movie.Poster = null;
         }
 
-        Selecteds = GendersSelecteds.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Name)).ToList();
-        NoSelecteds = GendersNoSelecteds.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Name)).ToList();
+        Seleccionados =
+            GendersSelected.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Name)).ToList();
+
+        NoSeleccionados =
+            GendersNoSelecteds.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Name)).ToList();
     }
 
-    private void ImgSelected(string imgBase64)
+    private void ImagenSeleccionada(string imagenBase64)
     {
-        Movie.Poster = imgBase64;
-        imgURL = null;
+        Movie.Poster = imagenBase64;
+        imagenURL = null;
     }
 
-    private async Task<IEnumerable<Actor>> SearchActors(string searchText)
+    private async Task<IEnumerable<Actor>> BuscarActores(string searchText)
     {
-        return new List<Actor>(){
-        new Actor{Id = 1, Name = "Arnold Schwarzenegger", Photo = "https://www.schwarzenegger.com/assets/images/img-3.jpg"},
-        new Actor{Id = 2, Name = "Amitabh Bachchan", Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/BACHCHAN_Amitabh_03-24x30-2009b.jpg/220px-BACHCHAN_Amitabh_03-24x30-2009b.jpg"},
-        new Actor{Id = 3, Name = "Tom Hanks", Photo = "https://imagenes.elpais.com/resizer/Zpcdgu5_1dZVGR9i1LKACPG_hRg=/1960x1470/filters:focal(1773x1456:1783x1466)/cloudfront-eu-central-1.images.arcpublishing.com/prisa/AKSN7LR4ONDX7GB2YW2HWNVNCU.jpg" }
-        };
+        // var respuestaHTTP = await repository.Get<List<Actor>>($"api/actors/Search/{searchText}");
+        // return respuestaHTTP!.Response!;
+        return null;
     }
 
     private async Task OnDataAnnotationsValidated()
     {
-        Console.WriteLine("validations init");
-        Movie.GendersMovie = Selecteds.Select(x => new GenderMovie { GenderId = int.Parse(x.Key) }).ToList();
-        Movie.MoviesActor = ActorsSeleted.Select(x => new MovieActor { ActorId = x.Id, Character = x.Character }).ToList();
+        Movie.GendersMovie = Seleccionados
+            .Select(x => new GenderMovie { GenderId = int.Parse(x.Key) }).ToList();
+
+        Movie.MoviesActor = ActoresSeleccionados
+            .Select(x => new MovieActor { ActorId = x.Id, Character = x.Character }).ToList();
 
         await OnValidSubmit.InvokeAsync();
     }
