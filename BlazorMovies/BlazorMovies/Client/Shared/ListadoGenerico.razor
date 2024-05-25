@@ -25,7 +25,6 @@ else if (List.Count == 0)
     {
         @NoRecords
     }
-
 }
 else
 {
@@ -36,6 +35,10 @@ else
             @HaveRecord(item)
         }
     } 
+    else
+    {
+        @HaveRecordComplete
+    }
 }
 
 @code {
