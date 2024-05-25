@@ -1,4 +1,5 @@
 ﻿@page "/actors"
+@inject IRepository repository;
 
 <h3>Actors</h3>
 
@@ -6,6 +7,39 @@
     <a href="actors/create" class="btn btn-info" >Create actor</a>
 </div>
 
-@code {
 
+<ListadoGenerico List="Actors">
+    <HaveRecordComplete>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Actors!)
+                {
+                    <tr>
+                        <a class="btn btn-success">Edit</a>
+                        <a class="btn btn-danger">Delete</a>
+                    </tr>
+                <td>
+                        @item.Name
+                </td>
+                }
+            </tbody>
+        </table>
+    </HaveRecordComplete>
+</ListadoGenerico>
+
+
+@code {
+    public List<Actor>? Actors { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var answerHttp = await repository.Get<List<Actor>>("api/actors");
+        Actors = answerHttp.Response!;
+    }
 }
