@@ -1,5 +1,6 @@
 ﻿using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorMovies.Server.Controllers
 {
@@ -12,6 +13,12 @@ namespace BlazorMovies.Server.Controllers
         public GendersController(ApplicationDbContext context)
         {
             this.context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Gender>>> Get()
+        {
+            return await context.Genders.ToListAsync();
         }
 
         //[HttpPost]
