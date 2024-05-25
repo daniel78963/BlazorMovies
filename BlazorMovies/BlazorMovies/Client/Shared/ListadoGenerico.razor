@@ -1,6 +1,6 @@
 ﻿@typeparam Titem
 
-@if (list is null)
+@if (List is null)
 {
     @*  <p>loading movies...</p> *@
 
@@ -14,7 +14,7 @@
     }
 
 }
-else if (list.Count == 0)
+else if (List.Count == 0)
 {
     @*  <p>No movies availables</p> *@
     @if (NoRecords is null)
@@ -29,10 +29,13 @@ else if (list.Count == 0)
 }
 else
 {
-    @foreach (var item in list)
+    if (HaveRecord is not null)
     {
-        @HaveRecord(item)
-    }
+        @foreach (var item in List)
+        {
+            @HaveRecord(item)
+        }
+    } 
 }
 
 @code {
@@ -46,7 +49,10 @@ else
     public RenderFragment<Titem> HaveRecord { get; set; } = null!;
 
     [Parameter]
+    public RenderFragment<Titem> HaveRecordComplete { get; set; } = null!;
+
+    [Parameter]
     [EditorRequired]
-    public List<Titem> list { get; set; } = null!;
+    public List<Titem> List { get; set; } = null!;
 
 }

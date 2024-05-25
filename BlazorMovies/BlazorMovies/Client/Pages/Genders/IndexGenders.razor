@@ -1,4 +1,5 @@
 ﻿@page "/genders"
+@inject IRepository repository
 
 <h3>Genders</h3>
 
@@ -6,6 +7,16 @@
     <a class="btn btn-info" href="genders/create">Add Gender</a>
 </div>
 
-@code {
+<ListadoGenerico List="Genders" >
 
+</ListadoGenerico>
+
+@code {
+    public List<Gender> Genders { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var answerHttp = await repository.Get<List<Gender>>("api/genders");
+        Genders = answerHttp.Response!;
+    }
 }
