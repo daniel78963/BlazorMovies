@@ -5,20 +5,33 @@
 
 <h3>Create Movie</h3>
 
-<FormMovie Movie="Movie" OnValidSubmit="Create" GendersNoSelecteds="GendersNoSelected"></FormMovie>
+@if (ShowForm)
+{
+    <FormMovie Movie="Movie" OnValidSubmit="Create" GendersNoSelecteds="GendersNoSelected">
+    </FormMovie>
+}
+else
+{
+    <p>cargando...</p>
+}
 
 @code {
     private Movie Movie = new Movie();
     private List<Gender> GendersNoSelected = new List<Gender>();
+    public bool ShowForm { get; set; } = false;
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        GendersNoSelected = new List<Gender>()
-        {
-            new Gender(){Id = 1, Name = "Fiction"},
-            new Gender(){Id = 2, Name = "Action"},
-            new Gender(){Id = 3, Name = "Comedy"}
-        };
+        var responseHttp = await repository.Get<List<Gender>>("api/genders");
+        // GendersNoSelected = new List<Gender>()
+        // {
+        //     new Gender(){Id = 1, Name = "Fiction"},
+        //     new Gender(){Id = 2, Name = "Action"},
+        //     new Gender(){Id = 3, Name = "Comedy"}
+        // };
+        GendersNoSelected = responseHttp.Response!;
+        Console.WriteLine("get api/genders");
+        ShowForm = true;
     }
 
     async Task Create()
