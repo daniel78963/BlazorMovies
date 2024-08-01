@@ -123,15 +123,16 @@
 
     private async Task<IEnumerable<Actor>> BuscarActores(string searchText)
     {
-        return new List<Actor>()
-        {
-            new Actor{Id = 1, Name ="Tom Hanks", Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Tom_Hanks_TIFF_2019.jpg/431px-Tom_Hanks_TIFF_2019.jpg"},
-            new Actor{Id = 2, Name ="Arnold Schwarzenegger", Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg/471px-Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg"}
-        };
-    
-        // var respuestaHTTP = await repository.Get<List<Actor>>($"api/actors/Search/{searchText}");
-        // return respuestaHTTP!.Response!;
         // return null;
+
+        // return new List<Actor>()
+        // {
+        //     new Actor{Id = 1, Name ="Tom Hanks", Photo = "https:upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Tom_Hanks_TIFF_2019.jpg/431px-Tom_Hanks_TIFF_2019.jpg"},
+        //     new Actor{Id = 2, Name ="Arnold Schwarzenegger", Photo = "https:upload.wikimedia.org/wikipedia/commons/thumb/a/af/Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg/471px-Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg"}
+        // };
+    
+        var respuestaHTTP = await repository.Get<List<Actor>>($"api/actors/search/{searchText}");
+        return respuestaHTTP!.Response!;       
     }
 
     private async Task OnDataAnnotationsValidated()
