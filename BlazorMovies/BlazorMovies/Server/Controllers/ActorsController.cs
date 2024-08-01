@@ -25,6 +25,12 @@ namespace BlazorMovies.Server.Controllers
             return await context.Actors.ToListAsync();
         }
 
+        [HttpGet("search/{searchText}")]
+        public async Task <ActionResult<List<Actor>>> Get(string searchText)
+        {
+
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> PostAsync(Actor actor)
         {
