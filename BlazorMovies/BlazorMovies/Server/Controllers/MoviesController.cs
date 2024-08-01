@@ -1,6 +1,7 @@
 ﻿using BlazorMovies.Server.Helpers;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorMovies.Server.Controllers
 {
@@ -16,6 +17,23 @@ namespace BlazorMovies.Server.Controllers
         {
             this.context = context;
             this.storageFiles = storageFiles;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Get()
+        {
+            int top = 6;
+            var moviesInPremier = await context.Movies
+                .Where(movie => movie.InPremier)
+                .Take(top)
+                .OrderByDescending(movie => movie.DateLaunch)
+                .ToListAsync();
+            var actualDate = DateTime.Now;
+            var nextPremieres = await context.Movies
+                   .Where(movie => movie.DateLaunch > actualDate)
+                   .Take(top)
+                   .OrderByDescending(movie => movie.DateLaunch)
+                   .ToListAsync();
         }
 
         [HttpPost]
