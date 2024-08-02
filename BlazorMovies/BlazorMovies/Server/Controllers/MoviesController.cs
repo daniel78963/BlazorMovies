@@ -1,4 +1,5 @@
-﻿using BlazorMovies.Server.Helpers;
+﻿using BlazorMovies.Client.Shared.DTOs;
+using BlazorMovies.Server.Helpers;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult<HomePageDTO>> Get()
         {
             int top = 6;
             var moviesInPremier = await context.Movies
@@ -34,6 +35,13 @@ namespace BlazorMovies.Server.Controllers
                    .Take(top)
                    .OrderByDescending(movie => movie.DateLaunch)
                    .ToListAsync();
+
+            var result = new HomePageDTO
+            {
+                MoviesInPremier = moviesInPremier,
+                NextPremieres = nextPremieres
+            };
+            return result;
         }
 
         [HttpPost]
