@@ -1,5 +1,5 @@
-﻿using BlazorMovies.Client.Shared.DTOs;
-using BlazorMovies.Server.Helpers;
+﻿using BlazorMovies.Server.Helpers;
+using BlazorMovies.Shared.DTOs;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -34,11 +34,27 @@ Welcome to your new app.
     <p>Date launch: <b> @BlackLove.DateLaunch.ToString("yyyy MMM dd") </b></p>
 </div> *@
 
-<div>
+@* <div>
     <h3>Movies</h3>
 
     <div>
         <MoviesList Movies="Movies"></MoviesList>
+    </div>
+</div> *@
+
+<div>
+    <h3>Movies In Premier</h3>
+
+    <div>
+        <MoviesList Movies="MoviesInPremiere"></MoviesList>
+    </div>
+</div>
+
+<div>
+    <h3>Nexts Premieres</h3>
+
+    <div>
+        <MoviesList Movies="NextPremieres"></MoviesList>
     </div>
 </div>
 
@@ -134,10 +150,20 @@ Welcome to your new app.
     // List<Movie>? Movies { get; set; }
 
     List<Movie>? Movies { get; set; }
-    protected override void OnInitialized()
+    List<Movie>? MoviesInPremiere { get; set; }
+    List<Movie>? NextPremieres { get; set; }
+    // protected override void OnInitialized()
+    // {
+    //     // Movies = GetMovies();
+    //     Movies = repository.GetMovies(); 
+    // }
+    protected override async Task OnInitializedAsync()
     {
         // Movies = GetMovies();
-        Movies = repository.GetMovies();
+        // Movies = repository.GetMovies();
+        var answerHttp = await repository.Get<HomePageDTO>("api/movies");
+        MoviesInPremiere = answerHttp.Response!.MoviesInPremier;
+        NextPremieres = answerHttp.Response!.NextPremieres;
     }
     private void AddMovie()
     {

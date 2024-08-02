@@ -1,6 +1,6 @@
 ﻿using BlazorMovies.Shared.Entities;
 
-namespace BlazorMovies.Client.Shared.DTOs
+namespace BlazorMovies.Shared.DTOs
 {
     public class HomePageDTO
     {
