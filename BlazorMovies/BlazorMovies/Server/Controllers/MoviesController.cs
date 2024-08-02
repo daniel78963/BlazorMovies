@@ -44,6 +44,26 @@ namespace BlazorMovies.Server.Controllers
             return result;
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult> Get(int id)
+        {
+            var movie = await context.Movies.Where(movie => movie.Id == id)
+                .Include(movie => movie.GendersMovie)
+                    .ThenInclude(gp => gp.Gender)
+                .Include(movie => movie.MoviesActor.OrderBy(pa=>pa.Order))
+                    .ThenInclude(movie => movie.Actor)
+                .FirstOrDefaultAsync();
+
+            if (movie is null)
+            {
+                return NotFound();
+            }
+
+            //TODO: sistema de votación
+            var AVGVote = 4;
+            var userVote = 5;
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> PostAsync(Movie movie)
         {
