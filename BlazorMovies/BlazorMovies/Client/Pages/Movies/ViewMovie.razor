@@ -3,7 +3,14 @@
 @inject IRepository repository
 @inject SweetAlertService swal
 
-<h3>ViewMovie</h3>
+@if (model is null)
+{
+    <p>cargando...</p>
+}     
+else
+{
+    <h2>@model.Movie.Title (@model.Movie.DateLaunch!.Value.ToString("yyyy")</h2>
+}
 
 @code {
     [Parameter] public int MovieId { get; set; }
