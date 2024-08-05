@@ -50,7 +50,7 @@ namespace BlazorMovies.Server.Controllers
             var movie = await context.Movies.Where(movie => movie.Id == id)
                 .Include(movie => movie.GendersMovie)
                     .ThenInclude(gp => gp.Gender)
-                .Include(movie => movie.MoviesActor.OrderBy(pa=>pa.Order))
+                .Include(movie => movie.MoviesActor.OrderBy(pa => pa.Order))
                     .ThenInclude(movie => movie.Actor)
                 .FirstOrDefaultAsync();
 
@@ -72,6 +72,14 @@ namespace BlazorMovies.Server.Controllers
                 //pasar de base64 a arreglo de bytes
                 var photoActor = Convert.FromBase64String(movie.Poster);
                 movie.Poster = await storageFiles.SaveFile(photoActor, ".jpg", conteiner);
+            }
+
+            if (movie.MoviesActor is not null)
+            {
+                for (int i = 0; i < movie.MoviesActor.Count; i++)
+                {
+                    movie.MoviesActor[i].Order = i++;
+                }
             }
 
             context.Add(movie);
