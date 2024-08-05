@@ -45,7 +45,7 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<ActionResult<MovieVisualizerDTO>> Get(int id)
         {
             var movie = await context.Movies.Where(movie => movie.Id == id)
                 .Include(movie => movie.GendersMovie)
@@ -62,6 +62,20 @@ namespace BlazorMovies.Server.Controllers
             //TODO: sistema de votación
             var AVGVote = 4;
             var userVote = 5;
+
+            var model = new MovieVisualizerDTO();
+            model.Movie = movie;
+            model.Genders = movie.GendersMovie.Select(gp => gp.Gender).ToList();
+            model.Actors = movie.MoviesActor.Select(pa => new Actor
+            {
+                Name = pa.Actor.Name,
+                Photo = pa.Actor.Photo,
+                Character = pa.Actor.Character,
+                Id = pa.ActorId
+            }).ToList();
+            model.AVGVote = AVGVote;
+            model.UserVote = userVote;
+            return model;
         }
 
         [HttpPost]
