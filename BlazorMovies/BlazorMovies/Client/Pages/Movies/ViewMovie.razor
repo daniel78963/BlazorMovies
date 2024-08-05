@@ -1,14 +1,31 @@
 ﻿@page "/movie/{MovieId:int}"
 @page "/movie/{MovieId:int}/{NameMovie}"
+@inject IRepository repository
+@inject SweetAlertService swal
 
 <h3>ViewMovie</h3>
 
 @code {
     [Parameter] public int MovieId { get; set; }
     [Parameter] public string NameMovie { get; set; } = null!;
+    private MovieVisualizerDTO? model;
 
-    protected override void OnInitialized()
+    // protected override void OnInitialized()
+    // {
+    //     Console.WriteLine($"The id of movie is {MovieId}");
+    // }
+    protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine($"The id of movie is {MovieId}");
+        var responseHTTP = await repository.
+        Get<MovieVisualizerDTO>($"api/movies/{MovieId}");
+        if (responseHTTP.Error)
+        {
+            var errorMessage = await responseHTTP.GetMessageError();
+            await swal.FireAsync("Error", errorMessage, SweetAlertIcon.Error);
+        }
+        else
+        {
+            model = responseHTTP.Response;
+        }
     }
 }
