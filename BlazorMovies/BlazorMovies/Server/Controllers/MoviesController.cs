@@ -65,10 +65,10 @@ namespace BlazorMovies.Server.Controllers
 
             var model = new MovieVisualizerDTO();
             model.Movie = movie;
-            model.Genders = movie.GendersMovie.Select(gp => gp.Gender).ToList();
+            model.Genders = movie.GendersMovie.Select(gp => gp.Gender!).ToList();
             model.Actors = movie.MoviesActor.Select(pa => new Actor
             {
-                Name = pa.Actor.Name,
+                Name = pa.Actor!.Name,
                 Photo = pa.Actor.Photo,
                 Character = pa.Actor.Character,
                 Id = pa.ActorId
