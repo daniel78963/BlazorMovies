@@ -12,8 +12,11 @@ else
     <h2>@model.Movie.Title (@model.Movie.DateLaunch!.Value.ToString("yyyy"))</h2>
     foreach (var gender in model.Genders)
     {
-        <a class="me-2" href="movies/search?genderid=@gender.Id">@gender.Name</a>
+        <a class="me-2 badge bg-primary rounded-pill text-decoration-none" href="movies/search?genderid=@gender.Id">@gender.Name</a>
     }
+    <span>| @model.Movie.DateLaunch!.Value.ToString("dd MMM yyyy") 
+        | Average: @model.AVGVote.ToString("0.#")
+        | Your vote: @model.UserVote.ToString()</span>
 }
 
 @code {
