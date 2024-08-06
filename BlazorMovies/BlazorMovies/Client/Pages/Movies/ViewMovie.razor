@@ -6,7 +6,7 @@
 @if (model is null)
 {
     <p>cargando...</p>
-}     
+}
 else
 {
     <h2>@model.Movie.Title (@model.Movie.DateLaunch!.Value.ToString("yyyy"))</h2>
@@ -14,16 +14,38 @@ else
     {
         <a class="me-2 badge bg-primary rounded-pill text-decoration-none" href="movies/search?genderid=@gender.Id">@gender.Name</a>
     }
-    <span>| @model.Movie.DateLaunch!.Value.ToString("dd MMM yyyy") 
+    <span>
+        | @model.Movie.DateLaunch!.Value.ToString("dd MMM yyyy")
         | Average: @model.AVGVote.ToString("0.#")/5
-        | Your vote: @model.UserVote.ToString()</span>
+        | Your vote: @model.UserVote.ToString()
+    </span>
 
-    <div class="d-flex">
+    <div class="d-flex mt-2">
         <span style="display: inline-block;" class="me-2">
-            <img src="@model.Movie.Poster" style="width: 225px; height: 315px" /> 
+            <img src="@model.Movie.Poster" style="width: 225px; height: 315px" />
         </span>
 
         <iframe width="560" height="315" src="https://www.youtube.com/embed/@model.Movie.Trailer" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="mt-2">
+        <h3>Summary</h3>
+        <div>
+            <ShowMarkdown ContentMarkdown="@model.Movie.Summary"></ShowMarkdown>
+        </div>
+    </div>
+    <div class="mt-2">
+        <h3>Actors</h3>
+        <div class="d-flex flex-column">
+            @foreach (var actor in model.Actors)
+            {
+                <div class="mb-2">
+                    <img style="width: 50px;" src="@actor.Photo" />
+                    <span style="display: inline-block; width: 200px">@actor.Name</span>
+                    <span style="display: inline-block; width: 45px">...</span>
+                    <span>@actor.Character</span>
+                </div>
+            }
+        </div>
     </div>
 }
 
