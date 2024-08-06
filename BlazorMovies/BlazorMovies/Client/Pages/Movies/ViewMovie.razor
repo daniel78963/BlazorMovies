@@ -10,6 +10,10 @@
 else
 {
     <h2>@model.Movie.Title (@model.Movie.DateLaunch!.Value.ToString("yyyy"))</h2>
+    foreach (var gender in model.Genders)
+    {
+        <a class="me-2" href="movies/search?genderid=@gender.Id">@gender.Name</a>
+    }
 }
 
 @code {
