@@ -1,18 +1,40 @@
 ﻿@page "/genders/edit/{GenderId:int}"
 @inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
 
 <h3>Edit Genders</h3>
- 
+
 <FormGender @ref="formGender" Gender="Gender" OnValidSubmit="Edit"></FormGender>
- 
+
 @code {
     [Parameter] public int GenderId { get; set; }
     private Gender? Gender;
     private FormGender? formGender;
 
-    protected override void OnInitialized()
+    // protected override void OnInitialized()
+    // {
+    //     Gender = new Gender() { Id = GenderId, Name = "Comedy" };
+    // }
+    protected override async Task OnInitializedAsync()
     {
-        Gender = new Gender() { Id = GenderId, Name = "Comedy" }; 
+        var responseHTTP = await repository.Get<Gender>($"api/genders/{GenderId}");
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("genders");
+            }
+            else
+            {
+                var errorMessage = await responseHTTP.GetMessageError();
+                await swal.FireAsync("Error", errorMessage, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            Gender = responseHTTP.Response;
+        } 
     }
 
     private void Edit()
