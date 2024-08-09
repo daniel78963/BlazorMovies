@@ -43,5 +43,13 @@ namespace BlazorMovies.Server.Controllers
             await context.SaveChangesAsync();
             return gender.Id;
         }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Gender gender)
+        {
+            context.Update(gender);
+            await context.SaveChangesAsync();
+            return NoContent();//Exitoso pero sin nada de retorno
+        }
     }
 }
