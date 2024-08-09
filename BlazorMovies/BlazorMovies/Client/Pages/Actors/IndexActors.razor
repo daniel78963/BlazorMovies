@@ -3,8 +3,8 @@
 
 <h3>Actors</h3>
 
-<div class="mb-3" >
-    <a href="actors/create" class="btn btn-info" >Create actor</a>
+<div class="mb-3">
+    <a href="actors/create" class="btn btn-info">Create actor</a>
 </div>
 
 
@@ -21,12 +21,14 @@
                 @foreach (var item in Actors!)
                 {
                     <tr>
-                        <a class="btn btn-success">Edit</a>
-                        <a class="btn btn-danger">Delete</a>
+                        <td>
+                            <a class="btn btn-success">Edit</a>
+                            <a class="btn btn-danger">Delete</a>
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
                     </tr>
-                <td>
-                        @item.Name
-                </td>
                 }
             </tbody>
         </table>

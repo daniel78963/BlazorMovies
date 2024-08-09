@@ -20,12 +20,14 @@
                 @foreach (var item in Genders!)
                 {
                     <tr>
-                        <a href="/genders/edit/@item.Id" class="btn btn-success">Edit</a>
-                        <a class="btn btn-danger">Delete</a>
+                        <td>
+                            <a href="/genders/edit/@item.Id" class="btn btn-success">Edit</a>
+                            <a class="btn btn-danger">Delete</a>
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
                     </tr>
-                    <td>
-                        @item.Name
-                    </td>
                 }
             </tbody>
         </table>
