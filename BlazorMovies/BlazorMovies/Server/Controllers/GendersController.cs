@@ -21,6 +21,12 @@ namespace BlazorMovies.Server.Controllers
             return await context.Genders.ToListAsync();
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Gender>> Get(int id)
+        {
+            return await context.Genders.FirstOrDefaultAsync(gender => gender.Id == id);
+        }
+
         //[HttpPost]
         //public async Task<ActionResult> PostAsync(Gender gender)
         //{
