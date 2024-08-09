@@ -24,7 +24,12 @@ namespace BlazorMovies.Server.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Gender>> Get(int id)
         {
-            return await context.Genders.FirstOrDefaultAsync(gender => gender.Id == id);
+           var gender = await context.Genders.FirstOrDefaultAsync(gender => gender.Id == id);
+            if (gender is null)
+            {
+                return NotFound();
+            }
+            return gender;
         }
 
         //[HttpPost]
