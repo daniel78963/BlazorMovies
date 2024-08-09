@@ -43,9 +43,22 @@ else
         }
     }
 
-    private void Edit()
+    // private async void Edit()
+    private async Task Edit()
     {
-        formGender!.FormPostedSuccess = true;
-        navigationManager.NavigateTo("genders");
+        // formGender!.FormPostedSuccess = true;
+        // navigationManager.NavigateTo("genders");
+
+        var responseHTTP = await repository.Put("api/genders", Gender);
+        if (responseHTTP.Error)
+        {
+            var errorMessage = await responseHTTP.GetMessageError();
+            await swal.FireAsync("Error", errorMessage, SweetAlertIcon.Error);
+        }
+        else
+        {
+            formGender!.FormPostedSuccess = true;
+            navigationManager.NavigateTo("genders");
+        }
     }
 }
