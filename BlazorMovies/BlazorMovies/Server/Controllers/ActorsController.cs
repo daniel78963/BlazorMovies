@@ -38,6 +38,17 @@ namespace BlazorMovies.Server.Controllers
                 .ToListAsync();
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Actor>> Get(int id)
+        {
+            var actor = await context.Actors.FirstOrDefaultAsync(actor => actor.Id == id);
+            if (actor is null)
+            {
+                return NotFound();
+            }
+            return actor;
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> PostAsync(Actor actor)
         {
