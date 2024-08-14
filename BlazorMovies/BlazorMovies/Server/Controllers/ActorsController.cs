@@ -26,7 +26,7 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet("search/{searchText}")]
-        public async Task <ActionResult<List<Actor>>> Get(string searchText)
+        public async Task<ActionResult<List<Actor>>> Get(string searchText)
         {
             if (string.IsNullOrWhiteSpace(searchText))
             {
@@ -64,6 +64,14 @@ namespace BlazorMovies.Server.Controllers
             return actor.Id;
         }
 
-
+        [HttpPut]
+        public async Task<ActionResult> Put(Actor actor)
+        {
+            var actorDB = await context.Actors.FirstOrDefaultAsync(actor => actor.Id == actor.Id);
+            if (actorDB is null)
+            {
+                return NotFound();
+            }
+        }
     }
 }
