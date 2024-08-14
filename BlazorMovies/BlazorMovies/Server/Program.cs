@@ -18,6 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddTransient<IStorageFiles, FileStorageLocal>();
 builder.Services.AddHttpContextAccessor();
 
+//Automapper
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
