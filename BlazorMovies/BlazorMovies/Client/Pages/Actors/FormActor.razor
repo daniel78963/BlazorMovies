@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="mb-3">
-        <InputImage Label="Photo" ImageSelected="ImgSelected" ImageURL="imgURL"></InputImage>
+        <InputImage Label="Photo" ImageSelected="ImgSelected" ImageURL="@imgURL"></InputImage>
     </div>
     <div class="mb-3 form-markdown">
         <InputMarkdown @bind-Value="@Actor.Biography" For="@(() => Actor.Biography)" Label="Biography">
@@ -39,9 +39,9 @@
     string? imgURL;
 
     protected override void OnInitialized()
-    {
+    { 
         if (!string.IsNullOrEmpty(Actor.Photo))
-        {
+        { 
             imgURL = Actor.Photo;
             Actor.Photo = null;
         }
