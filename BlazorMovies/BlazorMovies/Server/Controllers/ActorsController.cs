@@ -70,14 +70,21 @@ namespace BlazorMovies.Server.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(Actor actor)
         {
-            var actorDB = await context.Actors.FirstOrDefaultAsync(actor => actor.Id == actor.Id);
+            var actorDB = await context.Actors.FirstOrDefaultAsync(a => a.Id == actor.Id);
             if (actorDB is null)
             {
                 return NotFound();
             }
             actorDB = mapper.Map(actor, actorDB);
+
+            if (!string.IsNullOrWhiteSpace(actor.Photo))
+            {
+                var photoActor = Convert.FromBase64String(actor.Photo);
+                actorDB.Photo = await storageFiles.EditFile(photoActor, ".jpg", conteiner, actorDB.Photo!);
+            }
+
             await context.SaveChangesAsync();
-            return actorDB;
+            return NoContent();
         }
     }
 }
