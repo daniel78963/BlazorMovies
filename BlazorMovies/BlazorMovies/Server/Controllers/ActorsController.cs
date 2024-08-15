@@ -1,4 +1,5 @@
-﻿using BlazorMovies.Server.Helpers;
+﻿using AutoMapper;
+using BlazorMovies.Server.Helpers;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,14 @@ namespace BlazorMovies.Server.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IStorageFiles storageFiles;
+        private readonly IMapper mapper;
         private readonly string conteiner = "persons";
 
-        public ActorsController(ApplicationDbContext context, IStorageFiles storageFiles)
+        public ActorsController(ApplicationDbContext context, IStorageFiles storageFiles, IMapper mapper)
         {
             this.context = context;
             this.storageFiles = storageFiles;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -72,6 +75,9 @@ namespace BlazorMovies.Server.Controllers
             {
                 return NotFound();
             }
+            actorDB = mapper.Map(actor, actorDB);
+            await context.SaveChangesAsync();
+            return actorDB;
         }
     }
 }
