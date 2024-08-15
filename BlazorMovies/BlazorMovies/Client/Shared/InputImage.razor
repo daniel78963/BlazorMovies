@@ -1,14 +1,12 @@
 ﻿<div>
     <label>@Label</label>
     <div>
-        @* <InputFile multiple OnChange="OnChange" accept=".jpg,.jpeg,.png"></InputFile> *@
-        inputImage
+        @* <InputFile multiple OnChange="OnChange" accept=".jpg,.jpeg,.png"></InputFile> *@ 
         <InputFile OnChange="OnChange" accept=".jpg,.jpeg,.png"></InputFile>
     </div>
 </div>
 
-<div>
-    <label>@imgBase64</label>
+<div> 
     @if (imgBase64 is not null)
     {
         <div>
@@ -16,8 +14,7 @@
                 <img src="data:image/jpeg;base64, @imgBase64" style="width:400px;" />
             </div>
         </div>
-    }
-    <label>@ImageURL</label>
+    } 
     @if (ImageURL is not null)
     {
         <div>
