@@ -26,7 +26,7 @@
         <a href="@urlMovie" class="text-decoration-none">@Movie.Title</a>
     </p>
     <div>
-        <a class="btn btn-info">Edit</a>
+        <a class="btn btn-info" href="movies/edit/@Movie.Id">Edit</a>
         <button type="button" class="btn btn-danger" @onclick=@(() => DeleteMovieEvent.InvokeAsync(Movie))>Delete</button>
     </div>
 </div>
