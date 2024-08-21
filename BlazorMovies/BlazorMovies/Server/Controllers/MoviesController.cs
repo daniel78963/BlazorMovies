@@ -79,6 +79,11 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet("update/{id}")]
+        public async Task<ActionResult> PutGet(int id)
+        {
+            var movieActionResult = await Get(id);
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<int>> PostAsync(Movie movie)
