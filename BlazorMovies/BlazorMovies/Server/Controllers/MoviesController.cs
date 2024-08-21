@@ -82,6 +82,14 @@ namespace BlazorMovies.Server.Controllers
         public async Task<ActionResult> PutGet(int id)
         {
             var movieActionResult = await Get(id);
+            if (movieActionResult.Result is NotFoundResult) { return NotFound(); }
+
+            var movie = movieActionResult.Value;
+            //Esto se conoce como una proyección
+            var gendersSelectedsId = movie!.Genders.Select(g => g.Id).ToList();
+            var gendersNoSelecteds = await context.Genders.Where(x => !gendersSelectedsId.Contains(x.Id)).ToListAsync();
+
+
         }
 
 
