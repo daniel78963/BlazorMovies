@@ -79,7 +79,7 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet("update/{id}")]
-        public async Task<ActionResult> PutGet(int id)
+        public async Task<ActionResult<MovieUpdateDTO>> PutGet(int id)
         {
             var movieActionResult = await Get(id);
             if (movieActionResult.Result is NotFoundResult) { return NotFound(); }
@@ -89,7 +89,10 @@ namespace BlazorMovies.Server.Controllers
             var gendersSelectedsId = movie!.Genders.Select(g => g.Id).ToList();
             var gendersNoSelecteds = await context.Genders.Where(x => !gendersSelectedsId.Contains(x.Id)).ToListAsync();
 
-
+            Movie Movie = null!;
+            List<Actor> Actors = new List<Actor>();
+            List<Gender> GendersSelecteds = new List<Gender>();
+            List<Gender> GendersNoSelecteds = new List<Gender>();
         }
 
 
