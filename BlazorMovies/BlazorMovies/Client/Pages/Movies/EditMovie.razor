@@ -1,28 +1,65 @@
 ﻿@page "/movies/edit/{MovieId:int}"
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService swal
 
 <h3>Edit Movie</h3>
 
-<FormMovie Movie="Movie" OnValidSubmit="Edit" GendersNoSelecteds="GendersNoSelected" GendersSelecteds="GendersSelected"></FormMovie>
+@if (Movie is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <FormMovie Movie="Movie" OnValidSubmit="Edit" GendersNoSelecteds="GendersNoSelected" GendersSelecteds="GendersSelected"
+        ActoresSeleccionados="ActorsSelecteds"></FormMovie>
+}
+
 
 @code {
     [Parameter] public int MovieId { get; set; }
-    private Movie Movie = new Movie();
+    // private Movie Movie = new Movie();
+    Movie? Movie;
     private List<Gender> GendersNoSelected = new List<Gender>();
     private List<Gender> GendersSelected = new List<Gender>();
+    private List<Actor> ActorsSelecteds = new List<Actor>();
 
-    protected override void OnInitialized()
+    // protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Movie = new Movie { Id = MovieId, Title = "My movie" };
-        GendersNoSelected = new List<Gender>()
-        {
-            new Gender(){Id = 1, Name = "Fiction"}, 
-            new Gender(){Id = 3, Name = "Comedy"}
-        };
+        // Movie = new Movie { Id = MovieId, Title = "My movie" };
+        // GendersNoSelected = new List<Gender>()
+        // {
+        //     new Gender(){Id = 1, Name = "Fiction"},
+        //     new Gender(){Id = 3, Name = "Comedy"}
+        // };
 
-        GendersNoSelected = new List<Gender>()
-        { 
-            new Gender(){Id = 2, Name = "Action"} 
-        };
+        // GendersNoSelected = new List<Gender>()
+        // {
+        //     new Gender(){Id = 2, Name = "Action"}
+        // };
+        var responseHttp = await repository.Get<MovieUpdateDTO>($"api/movies/update/{MovieId}");
+
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/");
+            }
+            else
+            {
+                var errorMessage = await responseHttp.GetMessageError();
+                await swal.FireAsync("Error", errorMessage, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            var model = responseHttp.Response!;
+            ActorsSelecteds = model.Actors;
+            GendersSelected = model.GendersSelecteds;
+            GendersNoSelected = model.GendersNoSelecteds;
+            Movie = model.Movie;
+        }
     }
 
     private void Edit()
