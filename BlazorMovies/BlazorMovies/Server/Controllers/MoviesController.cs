@@ -84,17 +84,19 @@ namespace BlazorMovies.Server.Controllers
             var movieActionResult = await Get(id);
             if (movieActionResult.Result is NotFoundResult) { return NotFound(); }
 
-            var movie = movieActionResult.Value;
+            var movieVisualizerDto = movieActionResult.Value;
             //Esto se conoce como una proyección
-            var gendersSelectedsId = movie!.Genders.Select(g => g.Id).ToList();
+            var gendersSelectedsId = movieVisualizerDto!.Genders.Select(g => g.Id).ToList();
             var gendersNoSelecteds = await context.Genders.Where(x => !gendersSelectedsId.Contains(x.Id)).ToListAsync();
 
-            Movie Movie = null!;
-            List<Actor> Actors = new List<Actor>();
-            List<Gender> GendersSelecteds = new List<Gender>();
-            List<Gender> GendersNoSelecteds = new List<Gender>();
-        }
+            var model = new MovieUpdateDTO();
+            model.Movie = movieVisualizerDto.Movie;
 
+            model.Actors = movieVisualizerDto.Actors;
+            model.GendersSelecteds = movieVisualizerDto.Genders;
+            model.GendersNoSelecteds = gendersNoSelecteds;
+            return model;
+        }
 
         [HttpPost]
         public async Task<ActionResult<int>> PostAsync(Movie movie)
